@@ -16,8 +16,9 @@
         $name_places = $_POST['name_places'];
         $details_places = $_POST['details_places'];
         $contact_places = $_POST['contact_places'];
+        
 
-        $sql = $userdata->addplaces($name_places,$details_places,$contact_places );
+        $sql = $userdata->addplaces($name_places,$details_places,$contact_places,$_SESSION['Id_manager'] );
 
         if ($sql) {
             echo "<script>alert('เพิ่มสถานที่เสร็จสิ้น');</script>";

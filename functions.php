@@ -46,13 +46,19 @@
             return $checkplaces;
         }
 
-        public function addplaces($name_places,$details_places,$contact_places ) {
-            $adpl = mysqli_query($this->dbcon , "INSERT INTO places_info(name_places, details_places, contact_places) VALUE('$name_places','$details_places','$contact_places')");
+        public function addplaces($name_places,$details_places,$contact_places,$id_manager) {
+            $adpl = mysqli_query($this->dbcon , "INSERT INTO places_info(name_places, details_places, contact_places ,id_manager) VALUE('$name_places','$details_places','$contact_places','$id_manager')");
             return $adpl;
         }
 
         public function fetchdata() {
             $result = mysqli_query($this->dbcon, "SELECT * FROM places_info");
+            return $result;
+
+        }
+
+        public function fetchdataowner($id_manager) {
+            $result = mysqli_query($this->dbcon, "SELECT * FROM places_info WHERE id_manager='$id_manager'");
             return $result;
 
         }

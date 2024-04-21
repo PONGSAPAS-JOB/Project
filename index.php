@@ -6,7 +6,7 @@
         $username = $_POST['username'];
         $useremail = $_POST['email'];
         $phone = $_POST['phone'];
-        $password = $_POST['password'];
+        $password = md5($_POST['password']);
 
         $sql = $userdata->registration($username,$useremail,$phone,$password);
 

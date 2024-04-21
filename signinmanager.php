@@ -5,11 +5,11 @@
 
     if (isset($_POST['login'])) {
         $username = $_POST['username'];
-        $password = $_POST['password'];
+        $password = md5($_POST['password']);
 
         $result = $userdata->signin($username, $password);
         $num = mysqli_fetch_array($result);
-
+        
         if ($num > 0) {
             $_SESSION['Id_manager'] = $num['Id_manager'];
             $_SESSION['username'] = $num['username'];

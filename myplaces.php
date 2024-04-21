@@ -85,8 +85,8 @@ a {
 
 <?php 
     include_once('functions.php');
-    $fetchdata = new DB_con();
-    $sql = $fetchdata->fetchdata();
+    $fetchdataowner = new DB_con();
+    $sql = $fetchdataowner->fetchdataowner($_SESSION['Id_manager']);
     while($row = mysqli_fetch_array($sql)) {
       ?>
 
