@@ -20,6 +20,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Lily+Script+One&display=swap" rel="stylesheet">
     <title>สถานที่ของฉัน</title>
 </head>
+<style>
+body {
+    margin-top: 0px;
+    background-image: url('img/img3.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+}
+
+</style>
 <body>
 <style>
     

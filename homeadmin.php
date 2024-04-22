@@ -2,7 +2,7 @@
 
     session_start();
 
-    if ($_SESSION['Id_manager'] == "") {
+    if ($_SESSION['id_admin'] == "") {
         header("location: signinmanager.php");
 
     } else {
@@ -17,7 +17,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lily+Script+One&display=swap" rel="stylesheet">
-    <title>หน้าหลัก</title>
+    <title>หน้าหลัก admin</title>
 </head>
 <style>
 body {

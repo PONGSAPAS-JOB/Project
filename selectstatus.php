@@ -67,7 +67,7 @@ input{
         transition: transform 0.3s ease; /* Smooth transition when scaling */
         overflow: hidden; 
         margin-top: 0;
-        opacity: 0.8;
+        opacity: 1;
         border-radius: 20px;
   background-color: #f0f0f0;
   padding: 20px;
@@ -96,6 +96,7 @@ input{
     }
     #loginMG{  /*css แบบId*/ 
         font-size: 20px;
+        
     }
     #loginAD{  /*css แบบId*/ 
         font-size: 20px;
@@ -117,6 +118,7 @@ input{
          margin-top: 1rem;
          background-color:#FFFFFF;
     }
+
     .btn{
         
         width: 80%;
@@ -124,7 +126,10 @@ input{
          margin-right: auto;
          margin-top: 1rem;
          margin-bottom: 1rem;
+         opacity: 1;
     }
+
+    
     #createaccount{
         margin-left: 34%;
        
@@ -156,7 +161,7 @@ input{
             </div>
         
 
-            <button id="loginMG" name="loginMG" class="btn btn-warning" onclick="window.location.href='signinmanager.php'">Manager Account</button>
+            <button id="loginMG" name="loginMG" class="btn btn-warning" style="opacity: 1" onclick="window.location.href='signinmanager.php'">Manager Account</button>
 
     
         <hr>

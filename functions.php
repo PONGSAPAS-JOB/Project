@@ -3,7 +3,7 @@
     define('DB_SERVER','localhost');
     define('DB_USER','root');
     define('DB_PASS','');
-    define('DB_NAME','theawkanmai_7');
+    define('DB_NAME','theawkanmai');
 
 
     class DB_con {
@@ -35,13 +35,39 @@
         }
 
         public function signin($username, $password) {
-            $signinquery = mysqli_query($this->dbcon, "SELECT Id_manager, username  FROM manager WHERE username = '$username' AND password = '$password' " );
-            return $signinquery;
+            // Query the manager table
+            $signinquery = mysqli_query($this->dbcon, "SELECT Id_manager, username FROM manager WHERE username = '$username' AND password = '$password'");
+            
+            // Check if the query returned any rows
+            if(mysqli_num_rows($signinquery) > 0) {
+                return $signinquery;
+            } else {
+                // Query the admin table
+                $adminquery = mysqli_query($this->dbcon, "SELECT id_admin, username FROM admin WHERE username = '$username' AND password = '$password'");
+                
+                // Check if the query returned any rows
+                if(mysqli_num_rows($adminquery) > 0) {
+                    return $adminquery;
+                } else {
+                    // Query the spe table
+                    $spequery = mysqli_query($this->dbcon, "SELECT id_spe, username FROM spe WHERE username = '$username' AND password = '$password'");
+                    
+                    // Check if the query returned any rows
+                    if(mysqli_num_rows($spequery) > 0) {
+                        return $spequery;
+                    } else {
+                        // No matching user found
+                        return false;
+                    }
+                }
+            }
         }
+        
 
 
 //สถานที่
         public function placesnameavailable($name_places) {
+
             $checkplaces = mysqli_query($this->dbcon, "SELECT name_places FROM places_info WHERE name_places = '$name_places' ");
             return $checkplaces;
         }

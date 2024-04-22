@@ -6,21 +6,41 @@
     if (isset($_POST['login'])) {
         $username = $_POST['username'];
         $password = md5($_POST['password']);
-
+    
         $result = $userdata->signin($username, $password);
         $num = mysqli_fetch_array($result);
-        
-        if ($num > 0) {
-            $_SESSION['Id_manager'] = $num['Id_manager'];
-            $_SESSION['username'] = $num['username'];
-            echo "<script>alert('เข้าสู่ระบบเเล้ว!');</script>";
-            echo "<script>window.location.href='home.php'</script>";
-        } else {
-            echo "<script>alert('ชื่อผู้ใช้งาน หรือ รหัสผ่านผิด โปรดลองอีกครั้ง!');</script>";
-            echo "<script>window.location.href='signinmanager.php'</script>";
+    
+        if ($num) {
+            // Check which table the user belongs to based on the keys present in the $num array
+            if (isset($num['Id_manager'])) {
+                $_SESSION['Id_manager'] = $num['Id_manager'];
+                $_SESSION['username'] = $num['username'];
 
+                echo "<script>alert('เข้าสู่ระบบแล้ว!');</script>";
+                echo "<script>window.location.href='home.php'</script>";
+
+            } elseif (isset($num['id_admin'])) {
+                $_SESSION['id_admin'] = $num['id_admin'];
+                $_SESSION['username'] = $num['username'];
+
+                echo "<script>alert('เข้าสู่ระบบแล้ว!');</script>";
+                echo "<script>window.location.href='homeadmin.php'</script>";
+
+            } elseif (isset($num['id_spe'])) {
+                $_SESSION['id_spe'] = $num['id_spe'];
+                $_SESSION['username'] = $num['username'];
+
+                echo "<script>alert('เข้าสู่ระบบแล้ว!');</script>";
+                echo "<script>window.location.href='homespe.php'</script>";
+            }
+    
+           
+        } else {
+            echo "<script>alert('ชื่อผู้ใช้งานหรือรหัสผ่านผิด โปรดลองอีกครั้ง!');</script>";
+            echo "<script>window.location.href='signinmanager.php'</script>";
         }
     }
+    
 
     
 ?>
@@ -86,7 +106,7 @@ input{
         transition: transform 0.3s ease; /* Smooth transition when scaling */
         overflow: hidden; 
         margin-top: 0;
-        opacity: 0.8;
+        opacity: 1;
         border-radius: 20px;
   background-color: #f0f0f0;
   padding: 20px;
@@ -103,11 +123,11 @@ input{
         margin-left: 20px;
     }
     .detail{
-        margin-left: 20px;
+        margin-left: 14px;
         font-size: 15px;
     }
     .subtitile{
-        margin-left: 30%;
+        margin-left: 40%;
         margin-top: 20%;
        
 
@@ -163,11 +183,11 @@ input{
             “ Theaw-kan-mai App ”
         </h1>
         <div class ="detail">
-        Location information management website
+        Location information management application
         </div>
         <div class = "subtitile">
             <h2 id="login">
-            Manager Login 
+             Login 
             </h2>
             </div>
         

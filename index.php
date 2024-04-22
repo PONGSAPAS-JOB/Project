@@ -83,15 +83,15 @@ input{
         
           width: 100%; /* Set the initial width */
         max-width: 700px; /* Set the maximum width */
-        height: 90vh; /* Allow the height to adjust proportionally */
+        height: 84vh; /* Allow the height to adjust proportionally */
         margin: 0 auto; /* Center the container */
         transition: transform 0.3s ease; /* Smooth transition when scaling */
         overflow: hidden; 
-        margin-top: 1;
-        opacity: 0.8;
+        margin-top: 0.5;
+        opacity: 0.9;
         border-radius: 20px;
   background-color: #f0f0f0;
-  padding: 30px;
+  padding: 20px;
 
 }
     .logo{    
