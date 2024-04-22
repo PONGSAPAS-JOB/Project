@@ -3,7 +3,7 @@
     session_start();
 
     if ($_SESSION['id_admin'] == "") {
-        header("location: signinmanager.php");
+        header("location: signin.php");
 
     } else {
 
@@ -43,15 +43,40 @@ a {
     font-family: 'Lily Script One', cursive; 
 }
 
+.navbar-nav {
+    flex-grow: 1;
+    justify-content: center;
+}
+
+.navbar-nav .nav-item {
+    margin: 0 20px;
+}
+
+
+.navbar-brand {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .navbar-brand .app-name {
+            margin-bottom: -5px;
+        }
+
+        .navbar-brand .app-desc {
+            font-size: 12px;
+        }
 
 </style>
 
 
 
 <nav class="navbar navbar-expand-lg navbar-light bg-warning">
-  <div class="container-fluid">
+<div class="container-fluid">
     <a class="navbar-brand" href="#">
-      "Theaw-kan-mai App"</a>
+      <span class="app-name">Theaw-kan-mai App</span>
+      <span class="app-desc">Location information management application</span>
+    </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>

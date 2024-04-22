@@ -12,7 +12,7 @@
 
         if ($sql) {
             echo "<script>alert('ลงทะเบียนเสร็จสิ้น');</script>";
-            echo "<script>window.location.href='signinmanager.php'</script>";
+            echo "<script>window.location.href='signin.php'</script>";
         } else {
             echo "<script>alert('ลงทะเบียนผิดพลาด โปรดลองอีกครั้ง');</script>";
             echo "<script>window.location.href='index.php'</script>";
@@ -189,7 +189,7 @@ input{
         </form>
 
         <div class="signin">
-        <A>Do you already have an account? <A id="signin" href="signinmanager.php"><h7>Sing in</h7> </A></A>
+        <A>Do you already have an account? <A id="signin" href="signin.php"><h7>Sing in</h7> </A></A>
         </div>
         
         

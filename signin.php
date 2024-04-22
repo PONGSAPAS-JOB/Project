@@ -37,7 +37,7 @@
            
         } else {
             echo "<script>alert('ชื่อผู้ใช้งานหรือรหัสผ่านผิด โปรดลองอีกครั้ง!');</script>";
-            echo "<script>window.location.href='signinmanager.php'</script>";
+            echo "<script>window.location.href='signin.php'</script>";
         }
     }
     
