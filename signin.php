@@ -7,40 +7,35 @@
         $username = $_POST['username'];
         $password = md5($_POST['password']);
     
-        $result = $userdata->signin($username, $password);
-        $num = mysqli_fetch_array($result);
+        $userData = $userdata->signin($username, $password);
     
-        if ($num) {
-            // Check which table the user belongs to based on the keys present in the $num array
-            if (isset($num['Id_manager'])) {
-                $_SESSION['Id_manager'] = $num['Id_manager'];
-                $_SESSION['username'] = $num['username'];
-
+        if ($userData !== null) {
+            if (isset($userData['Id_manager'])) {
+                $_SESSION['Id_manager'] = $userData['Id_manager'];
+                $_SESSION['username'] = $userData['username'];
+    
                 echo "<script>alert('เข้าสู่ระบบแล้ว!');</script>";
                 echo "<script>window.location.href='home.php'</script>";
-
-            } elseif (isset($num['id_admin'])) {
-                $_SESSION['id_admin'] = $num['id_admin'];
-                $_SESSION['username'] = $num['username'];
-
+    
+            } elseif (isset($userData['id_admin'])) {
+                $_SESSION['id_admin'] = $userData['id_admin'];
+                $_SESSION['username'] = $userData['username'];
+    
                 echo "<script>alert('เข้าสู่ระบบแล้ว!');</script>";
                 echo "<script>window.location.href='homeadmin.php'</script>";
-
-            } elseif (isset($num['id_spe'])) {
-                $_SESSION['id_spe'] = $num['id_spe'];
-                $_SESSION['username'] = $num['username'];
-
+    
+            } elseif (isset($userData['id_spe'])) {
+                $_SESSION['id_spe'] = $userData['id_spe'];
+                $_SESSION['username'] = $userData['username'];
+    
                 echo "<script>alert('เข้าสู่ระบบแล้ว!');</script>";
                 echo "<script>window.location.href='homespe.php'</script>";
             }
-    
-           
         } else {
             echo "<script>alert('ชื่อผู้ใช้งานหรือรหัสผ่านผิด โปรดลองอีกครั้ง!');</script>";
             echo "<script>window.location.href='signin.php'</script>";
         }
     }
-    
 
     
 ?>
@@ -105,7 +100,7 @@ input{
         margin: 0 auto; /* Center the container */
         transition: transform 0.3s ease; /* Smooth transition when scaling */
         overflow: hidden; 
-        margin-top: 0;
+        margin-top: 5%;
         opacity: 1;
         border-radius: 20px;
   background-color: #f0f0f0;
@@ -175,7 +170,6 @@ input{
     
 </style>
 <body >
-<button type="back" id="back" onclick="window.location.href='selectstatus.php'" class="back btn-warning" > <-- BACK </button>
 
     <div class = "containerbg" >
         <div class = "title">

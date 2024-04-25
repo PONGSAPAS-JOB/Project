@@ -44,12 +44,15 @@ a {
 }
 
 .navbar-nav {
+ 
     flex-grow: 1;
     justify-content: center;
+    
 }
 
 .navbar-nav .nav-item {
     margin: 0 20px;
+    
 }
 
 
@@ -66,6 +69,15 @@ a {
         .navbar-brand .app-desc {
             font-size: 12px;
         }
+  .rounded-circle {
+    width: 5% ;
+    height: 5%;
+    margin-right: 3%;
+    margin-bottom: -10%;
+   
+    
+  
+  }
 
 </style>
 
@@ -83,23 +95,32 @@ a {
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="home.php">Home</a>
+          <a class="nav-link active" aria-current="page" href="homeadmin.php">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="addplaces.php">Add Places</a>
+          <a class="nav-link active" aria-current="page" href="areaandplacesMG.php">Area/Places Management</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="myplaces.php">My Places</a>
+          <a class="nav-link active" aria-current="page" href="memberMG.php">Member Management</a>
         </li>
         
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Promotion</a>
-        </li>
+        
       </ul>
-      <form class="d-flex">
-        <a class="navbar-brand" href="#">Welcome, <?php echo $_SESSION['username']; ?> </a>
-        <a class="btn btn-outline-success" type="submit" href="logout.php">ออกจากระบบ</a>
+      <div>
+      
+      <form class="d-flex justify-content-end ">
+      <a class="navbar-brand " href="#">Welcome,  </a> 
+      <a class="navbar-brand" href="#">
+      <span class="app-name"><?php echo $_SESSION['username']; ?></span>
+      <span class="app-desc">ผู้ดูเเลระบบ</span>
+      
+    </a>
+    <img src="img/pro.jpg" class="rounded-circle " alt="...">
+    
+    
+        <!-- <a class="btn btn-outline-success" type="submit" href="logout.php">ออกจากระบบ</a> -->
       </form>
+      </div>
     </div>
   </div>
 </nav>

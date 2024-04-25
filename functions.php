@@ -35,32 +35,25 @@
         }
 
         public function signin($username, $password) {
-            // Query the manager table
-            $signinquery = mysqli_query($this->dbcon, "SELECT Id_manager, username FROM manager WHERE username = '$username' AND password = '$password'");
+            $signinquery = mysqli_query($this->dbcon, "SELECT Id_manager, username, password FROM manager WHERE username = '$username'");
+            $adminquery = mysqli_query($this->dbcon, "SELECT id_admin, username, password FROM admin WHERE username = '$username'");
+            $spequery = mysqli_query($this->dbcon, "SELECT id_spe, username, password FROM spe WHERE username = '$username'");
             
-            // Check if the query returned any rows
+            $userData = null;
+        
             if(mysqli_num_rows($signinquery) > 0) {
-                return $signinquery;
-            } else {
-                // Query the admin table
-                $adminquery = mysqli_query($this->dbcon, "SELECT id_admin, username FROM admin WHERE username = '$username' AND password = '$password'");
-                
-                // Check if the query returned any rows
-                if(mysqli_num_rows($adminquery) > 0) {
-                    return $adminquery;
-                } else {
-                    // Query the spe table
-                    $spequery = mysqli_query($this->dbcon, "SELECT id_spe, username FROM spe WHERE username = '$username' AND password = '$password'");
-                    
-                    // Check if the query returned any rows
-                    if(mysqli_num_rows($spequery) > 0) {
-                        return $spequery;
-                    } else {
-                        // No matching user found
-                        return false;
-                    }
-                }
+                $userData = mysqli_fetch_assoc($signinquery);
+            } elseif(mysqli_num_rows($adminquery) > 0) {
+                $userData = mysqli_fetch_assoc($adminquery);
+            } elseif(mysqli_num_rows($spequery) > 0) {
+                $userData = mysqli_fetch_assoc($spequery);
             }
+        
+            if($userData !== null ) {
+                return $userData;
+            }
+        
+            return null;
         }
         
 

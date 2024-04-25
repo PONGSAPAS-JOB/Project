@@ -3,7 +3,7 @@
 
     session_start();
 
-    if ($_SESSION['Id_manager'] == "") {
+    if ($_SESSION['id_admin'] == "") {
         header("location: signin.php");
 
     } else {
@@ -112,15 +112,13 @@ a {
     margin-top: 0px;
     background-color: #ffffff;
 
-.row-cols-1 {
 
-}
 }
 .containerbg{
         
         width: 85%; /* Set the initial width */
       /* Set the maximum width */
-      height: 100vh;/* Allow the height to adjust proportionally */
+      height: 30vh;/* Allow the height to adjust proportionally */
       margin: 0 auto; /* Center the container */
       transition: transform 0.3s ease; /* Smooth transition when scaling */
       overflow: hidden; 
@@ -139,8 +137,8 @@ padding: 20px;
 
 <?php 
     include_once('functions.php');
-    $fetchdataowner = new DB_con();
-    $sql = $fetchdataowner->fetchdataowner($_SESSION['Id_manager']);
+    $fetchdata = new DB_con();
+    $sql = $fetchdata->fetchdata();
     while($row = mysqli_fetch_array($sql)) {
       ?>
 
@@ -150,20 +148,17 @@ padding: 20px;
 
 <div class="containerbg">
 
-<div class="row row-cols-1 row-cols-md-3 g-4">
-  <div class="col"><div class="row g-0">
-  <div class="col-sm-6 col-md-8"><?php echo $row['name_places']; ?></div>
-  <div class="col-6 col-md-4">.col-6 .col-md-4</div>
-</div>
+
     <div class="card">
     
       <div class="card-body">
         <h5 class="card-title"><?php echo $row['name_places']; ?></h5>
         <p class="card-text"><?php echo $row['details_places']; ?></p>
         <p class="card-text"><?php echo $row['contact_places']; ?></p>
-      </div>
-          <a href="updateplaces.php?id=<?php echo $row['id_places'];?>" class="btn btn-warning">เเก้ไขสถานที่</a>
+        <a href="updateplaces.php?id=<?php echo $row['id_places'];?>" class="btn btn-warning">เเก้ไขสถานที่</a>
           <a href="deleteplaces.php?del=<?php echo $row['id_places'];?>" class="btn btn-danger">ลบสถานที่</a>
+      </div>
+
     </div>
   </div>
 

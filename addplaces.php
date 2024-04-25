@@ -154,6 +154,10 @@ a {
                 <input type="text" class="form-control" id="contact_places" name="contact_places" aria-describedby="ข้อมูลติดต่อ สถานที่" required>
                 
             </div>
+            <div class="mb-3">
+            <label for="image" class="form-label">รูปภาพสถานที่</label>
+            <input type="file" class="form-control" id="image" name="image" accept="image/*" required>
+        </div>
 
             <button type="submit" name="insert" id="insert" class="btn btn-warning">เพิ่มข้อมูลสถานที่ใหม่</button>
 
