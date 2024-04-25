@@ -44,14 +44,23 @@ a {
 }
 
 .navbar-nav {
+  margin-left: 21%;
     flex-grow: 1;
     justify-content: center;
+    
 }
 
 .navbar-nav .nav-item {
-    margin: 0 20px;
+  margin-left: 10%;
+  align-items: center;
+  justify-content: center;
+    
 }
-
+.collapse .navbar-collapse {
+  margin-left: 10%;
+  align-items: center;
+  justify-content: center;
+}
 
 .navbar-brand {
             display: flex;
@@ -66,13 +75,19 @@ a {
         .navbar-brand .app-desc {
             font-size: 12px;
         }
-
+  .rounded-circle {
+    width: 8% ;
+    height: 8%;
+    margin-right: 3%;
+    margin-bottom: -10%;
+  
+  }
 
 </style>
 
 
 
-<nav class="navbar navbar-expand-lg navbar-light bg-warning">
+<nav class="navbar navbar-expand-lg navbar-light bg-warning " style="position: fixed;">
 <div class="container-fluid">
     <a class="navbar-brand" href="#">
       <span class="app-name">Theaw-kan-mai App</span>
@@ -82,88 +97,61 @@ a {
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="home.php">Home</a>
+          <a class="nav-link active" style="white-space: nowrap;" aria-current="page" href="home.php">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="addplaces.php">Add Places</a>
+          <a class="nav-link active"  style="white-space: nowrap;" aria-current="page" href="addplaces.php">Add Places</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="myplaces.php">My Places</a>
+          <a class="nav-link active" style="white-space: nowrap;" aria-current="page" href="myplaces.php">My Places</a>
         </li>
         
         <li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Promotion</a>
+          <a class="nav-link disabled"  style="white-space: nowrap;"href="#" tabindex="-1" aria-disabled="true">Promotion</a>
         </li>
       </ul>
-      <form class="d-flex">
-        <a class="navbar-brand" href="#">Welcome, <?php echo $_SESSION['username']; ?> </a>
-        <a class="btn btn-outline-success" type="submit" href="logout.php">ออกจากระบบ</a>
+      <div>
+      
+      <form class="d-flex justify-content-end ">
+      <a class="navbar-brand " href="#">Welcome,  </a> 
+      <a class="navbar-brand" href="#">
+      <span class="app-name"><?php echo $_SESSION['username']; ?></span>
+      <span class="app-desc">ผู้ดูเเลระบบ</span>
+      
+    </a>
+    <img src="img/pro.jpg" class="rounded-circle " alt="...">
+    
+    
+        <a class="btn btn-success" type="submit" href="logout.php">ออกจากระบบ</a>
       </form>
+      </div>
     </div>
   </div>
 </nav>
 
+
 <style>
+  .containerbg{
+        
+        width: 100%; /* Set the initial width */
+      max-width: 1300px; /* Set the maximum width */
+      height: 100vh; /* Allow the height to adjust proportionally */
+      margin: 0 auto; /* Center the container */
+      transition: transform 0.3s ease; /* Smooth transition when scaling */
+      overflow: hidden; 
+      opacity: 1;
 
+background-color: #f0f0f0;
+padding: 20px;
 
-.container{
-    margin-top: 20px;
 }
-
-
-
 </style>
-
-
-<div class="container">
-
-<div class="row row-cols-1 row-cols-md-3 g-4">
-  <div class="col">
-    <div class="card">
-      <img src="https://cms.dmpcdn.com/travel/2022/01/26/6220e0f0-7e53-11ec-a887-811810290a51_webp_original.jpg" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-      </div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="card">
-      <img src="https://www.paiduaykan.com/travel/wp-content/uploads/2022/02/SON08589.jpg" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-      </div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="card">
-      <img src="https://cms.dmpcdn.com/travel/2022/01/26/ce0ff3a0-7e53-11ec-809f-1f424036454f_webp_original.jpg" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
-      </div>
-    </div>
-  </div>
+<div class="containerbg">
+<img src="img/ana.png" class="img-fluid" alt="...">
 </div>
 
-</div>
-
-<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="https://cdn.discordapp.com/attachments/1157663249949532224/1222458317092159529/2879493.jpg?ex=66164a06&is=6603d506&hm=b3d34f390680e16d59060895c394254d31e23b05357a31b1bc6c29b8d9b8e7b9&" class="d-block w-100" alt="...">
-    </div>
-    <div class="carousel-item">
-      <img src="..." class="d-block w-100" alt="...">
-    </div>
-    <div class="carousel-item">
-      <img src="..." class="d-block w-100" alt="...">
-    </div>
-  </div>
-</div>
 </body>
 </html>
 

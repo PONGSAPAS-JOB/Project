@@ -1,4 +1,3 @@
-
 <?php
 
     session_start();
@@ -9,6 +8,28 @@
     } else {
 
 ?>
+<?php 
+    include_once('functions.php');
+    $userdata = new DB_con();
+
+    if (isset($_POST['insert'])) {
+        $name_places = $_POST['name_places'];
+        $details_places = $_POST['details_places'];
+        $contact_places = $_POST['contact_places'];
+        
+
+        $sql = $userdata->addplacesbyadmin($name_places,$details_places,$contact_places,$_SESSION['id_admin'] );
+
+        if ($sql) {
+            echo "<script>alert('เพิ่มสถานที่เสร็จสิ้น');</script>";
+            echo "<script>window.location.href='areaandplacesMG.php'</script>";
+        } else {
+            echo "<script>alert('ไม่สามารถเพิ่มสถานที่ได้ โปรดลองอีกครั้ง');</script>";
+            echo "<script>window.location.href='addplacesbyAD.php'</script>";
+        }
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,7 +39,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lily+Script+One&display=swap" rel="stylesheet">
-    <title>สถานที่ของฉัน</title>
+    <title>เพิ่มข้อมูลสถานที่ท่องเที่ยว</title>
 </head>
 <style>
 body {
@@ -139,30 +160,11 @@ a {
     </div>
   </div>
 </nav>
-
 <style>
 
 
-.row{
-    margin-top: 0px;
-    background-color: #ffffff;
-}
-
- 
-
-.containerbg {
-  margin-top: 10px;
-    
-}
-.card{
-  width: 85%;
-    height: 30vh;
-    margin: 0px auto 0; /* Adjusted margin-top to 60px to place container below navbar */
-    transition: transform 0.3s ease;
-    overflow: hidden;
-    opacity: 1;
-    background-color: #f0f0f0;
-    padding: 10px;
+.container{
+    margin-top: 40px;
 }
 
 .addplace  {
@@ -174,45 +176,60 @@ a {
     text-align: center; /* Center text within the button */
 }
 
-
-
-
 </style>
 
+<div class="addplace "  ><a  ></a></div>
+    <div class="container">
+        <h1 class="mt-5" > เพิ่มข้อมูลสถานที่ท่องเที่ยว </h1>
+        <hr>
 
-<div class="addplace "  ><a href="addplacesbyAD.php" class="btn btn-warning" >เพิ่มสถานที่</a></div>
-<?php 
-    include_once('functions.php');
-    $fetchdata = new DB_con();
-    $sql = $fetchdata->fetchdata();
-    while($row = mysqli_fetch_array($sql)) {
-      ?>
+        <form method="post">
+            <div class="mb-3">
+                <label for="name_places" class="form-label">ชื่อสถานที่</label>
+                <input type="text" class="form-control" id="name_places" name="name_places" aria-describedby="ชื่อสถานที่" onblur="nameplacescheck(this.value)" required>
+                <span id="placesnameavailable"></span>
+            </div>
+            <div class="mb-3">
+            <label for="details_places" class="form-label">ข้อมูลทั่วไปของสถานที่</label>
+                <textarea type="text" class="form-control" row="10"  id="details_places" name="details_places" aria-describedby="ข้อมูลทั่วไปของสถานที่" required></textarea>
+            </div>
+            <div class="mb-3">
+            <label for="contact_places" class="form-label">ข้อมูลติดต่อ สถานที่</label>
+                <input type="text" class="form-control" id="contact_places" name="contact_places" aria-describedby="ข้อมูลติดต่อ สถานที่" required>
+                
+            </div>
+            <div class="mb-3">
+            <label for="image" class="form-label">รูปภาพสถานที่</label>
+            <input type="file" class="form-control" id="image" name="image" accept="image/*" >
+        </div>
 
+            <button type="submit" name="insert" id="insert" class="btn btn-warning">เพิ่มข้อมูลสถานที่ใหม่</button>
 
-
-
-
-  <div class="containerbg">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title"><?php echo $row['name_places']; ?></h5>
-        <p class="card-text"><?php echo $row['details_places']; ?></p>
-        <p class="card-text"><?php echo $row['contact_places']; ?></p>
-        <a href="updateplaces.php?id=<?php echo $row['id_places'];?>" class="btn btn-warning">เเก้ไขสถานที่</a>
-          <a href="deleteplaces.php?del=<?php echo $row['id_places'];?>" class="btn btn-danger">ลบสถานที่</a>
-      </div>
-
+        </form>
     </div>
-  </div>
-</div>
 
-</div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+    function nameplacescheck(val){
+        $.ajax({
+            type: 'POST',
+            url: 'checkplaces_available.php',
+            data: 'name_places='+val,
+            success: function(data) {
+                $('#placesnameavailable').html(data);
+            }
+        });
+
+    }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    
 </body>
 </html>
-<?php
-          }
-?>
 
 <?php
-    }
+}
 ?>

@@ -43,15 +43,29 @@ body {
 a {
     font-family: 'Lily Script One', cursive; 
 }
+nav.navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+    }
 .navbar-nav {
+  margin-left: 21%;
     flex-grow: 1;
     justify-content: center;
+    
 }
 
 .navbar-nav .nav-item {
-    margin: 0 20px;
-}
+  margin-left: 10%;
 
+}
+.collapse .navbar-collapse {
+  margin-left: 10%;
+  align-items: center;
+  justify-content: center;
+}
 
 .navbar-brand {
             display: flex;
@@ -66,13 +80,19 @@ a {
         .navbar-brand .app-desc {
             font-size: 12px;
         }
-
+  .rounded-circle {
+    width: 8% ;
+    height: 8%;
+    margin-right: 3%;
+    margin-bottom: -10%;
+  
+  }
 
 </style>
 
 
 
-<nav class="navbar navbar-expand-lg navbar-light bg-warning">
+<nav class="navbar navbar-expand-lg navbar-light bg-warning " style="position: fixed;">
 <div class="container-fluid">
     <a class="navbar-brand" href="#">
       <span class="app-name">Theaw-kan-mai App</span>
@@ -82,61 +102,82 @@ a {
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="home.php">Home</a>
+          <a class="nav-link active" style="white-space: nowrap;" aria-current="page" href="home.php">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="addplaces.php">Add Places</a>
+          <a class="nav-link active"  style="white-space: nowrap;" aria-current="page" href="addplaces.php">Add Places</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="myplaces.php">My Places</a>
+          <a class="nav-link active" style="white-space: nowrap;" aria-current="page" href="myplaces.php">My Places</a>
         </li>
         
         <li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Promotion</a>
+          <a class="nav-link disabled"  style="white-space: nowrap;"href="#" tabindex="-1" aria-disabled="true">Promotion</a>
         </li>
       </ul>
-      <form class="d-flex">
-        <a class="navbar-brand" href="#">Welcome, <?php echo $_SESSION['username']; ?> </a>
-        <a class="btn btn-outline-success" type="submit" href="logout.php">ออกจากระบบ</a>
+      <div>
+      
+      <form class="d-flex justify-content-end ">
+      <a class="navbar-brand " href="#">Welcome,  </a> 
+      <a class="navbar-brand" href="#">
+      <span class="app-name"><?php echo $_SESSION['username']; ?></span>
+      <span class="app-desc">ผู้ดูเเลระบบ</span>
+      
+    </a>
+    <img src="img/pro.jpg" class="rounded-circle " alt="...">
+    
+    
+        <a class="btn btn-success" type="submit" href="logout.php">ออกจากระบบ</a>
       </form>
+      </div>
     </div>
   </div>
 </nav>
 
-<style>
 
+
+<style>
 
 .row{
     margin-top: 0px;
     background-color: #ffffff;
-
-.row-cols-1 {
-
 }
-}
-.containerbg{
-        
-        width: 85%; /* Set the initial width */
-      /* Set the maximum width */
-      height: 100vh;/* Allow the height to adjust proportionally */
-      margin: 0 auto; /* Center the container */
-      transition: transform 0.3s ease; /* Smooth transition when scaling */
-      overflow: hidden; 
-      margin-top: 0%;
-      opacity: 1;
-      
-background-color: #f0f0f0;
-padding: 20px;
 
+ 
+
+.containerbg {
+  margin-top: 10px;
+    
 }
+.card{
+  width: 85%;
+    height: 30vh;
+    margin: 0px auto 0; /* Adjusted margin-top to 60px to place container below navbar */
+    transition: transform 0.3s ease;
+    overflow: hidden;
+    opacity: 1;
+    background-color: #f0f0f0;
+    padding: 10px;
+}
+
+.addplace  {
+    margin-top: 100px; /* Adjusted margin-top to create space between button and cards */
+    width: 200px; /* Set button width */
+    margin-left: 1255px;
+    margin-right: auto;
+    display: block; /* Make the button a block-level element to center it */
+    text-align: center; /* Center text within the button */
+}
+
+
 
 
 </style>
 
 
-
+<div class="addplace "  ><a href="#"  ></a></div>
 <?php 
     include_once('functions.php');
     $fetchdataowner = new DB_con();
@@ -148,25 +189,18 @@ padding: 20px;
 
 
 
-<div class="containerbg">
-
-<div class="row row-cols-1 row-cols-md-3 g-4">
-  <div class="col"><div class="row g-0">
-  <div class="col-sm-6 col-md-8"><?php echo $row['name_places']; ?></div>
-  <div class="col-6 col-md-4">.col-6 .col-md-4</div>
-</div>
+  <div class="containerbg">
     <div class="card">
-    
       <div class="card-body">
         <h5 class="card-title"><?php echo $row['name_places']; ?></h5>
         <p class="card-text"><?php echo $row['details_places']; ?></p>
         <p class="card-text"><?php echo $row['contact_places']; ?></p>
-      </div>
-          <a href="updateplaces.php?id=<?php echo $row['id_places'];?>" class="btn btn-warning">เเก้ไขสถานที่</a>
+        <a href="updateplaces.php?id=<?php echo $row['id_places'];?>" class="btn btn-warning">เเก้ไขสถานที่</a>
           <a href="deleteplaces.php?del=<?php echo $row['id_places'];?>" class="btn btn-danger">ลบสถานที่</a>
+      </div>
+
     </div>
   </div>
-
 </div>
 
 </div>

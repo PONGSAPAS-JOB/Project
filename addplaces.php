@@ -22,7 +22,7 @@
 
         if ($sql) {
             echo "<script>alert('เพิ่มสถานที่เสร็จสิ้น');</script>";
-            echo "<script>window.location.href='home.php'</script>";
+            echo "<script>window.location.href='myplaces.php'</script>";
         } else {
             echo "<script>alert('ไม่สามารถเพิ่มสถานที่ได้ โปรดลองอีกครั้ง');</script>";
             echo "<script>window.location.href='addplaces.php'</script>";
@@ -118,7 +118,7 @@ a {
       </ul>
       <form class="d-flex">
         <a class="navbar-brand" href="#">Welcome, <?php echo $_SESSION['username']; ?> </a>
-        <a class="btn btn-outline-success" type="submit" href="logout.php">ออกจากระบบ</a>
+        <a class="btn btn-success" type="submit" href="logout.php">ออกจากระบบ</a>
       </form>
     </div>
   </div>
@@ -156,7 +156,7 @@ a {
             </div>
             <div class="mb-3">
             <label for="image" class="form-label">รูปภาพสถานที่</label>
-            <input type="file" class="form-control" id="image" name="image" accept="image/*" required>
+            <input type="file" class="form-control" id="image" name="image" accept="image/*" >
         </div>
 
             <button type="submit" name="insert" id="insert" class="btn btn-warning">เพิ่มข้อมูลสถานที่ใหม่</button>

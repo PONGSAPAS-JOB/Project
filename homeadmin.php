@@ -44,17 +44,23 @@ a {
 }
 
 .navbar-nav {
- 
+  margin-left: 21%;
     flex-grow: 1;
     justify-content: center;
     
 }
 
 .navbar-nav .nav-item {
-    margin: 0 20px;
+  margin-left: 10%;
+  align-items: center;
+  justify-content: center;
     
 }
-
+.collapse .navbar-collapse {
+  margin-left: 10%;
+  align-items: center;
+  justify-content: center;
+}
 
 .navbar-brand {
             display: flex;
@@ -70,12 +76,10 @@ a {
             font-size: 12px;
         }
   .rounded-circle {
-    width: 5% ;
-    height: 5%;
+    width: 8% ;
+    height: 8%;
     margin-right: 3%;
     margin-bottom: -10%;
-   
-    
   
   }
 
@@ -83,7 +87,7 @@ a {
 
 
 
-<nav class="navbar navbar-expand-lg navbar-light bg-warning">
+<nav class="navbar navbar-expand-lg navbar-light bg-warning " style="position: fixed;">
 <div class="container-fluid">
     <a class="navbar-brand" href="#">
       <span class="app-name">Theaw-kan-mai App</span>
@@ -95,13 +99,13 @@ a {
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="homeadmin.php">Home</a>
+        <a class="nav-link active" style="white-space: nowrap;" aria-current="page" href="homeadmin.php">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="areaandplacesMG.php">Area/Places Management</a>
+          <a class="nav-link active" style="white-space: nowrap;" aria-current="page" href="areaandplacesMG.php">Area/Places Management</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="memberMG.php">Member Management</a>
+          <a class="nav-link active" style="white-space: nowrap;" aria-current="page" href="memberMG.php">Member Management</a>
         </li>
         
         
@@ -118,7 +122,7 @@ a {
     <img src="img/pro.jpg" class="rounded-circle " alt="...">
     
     
-        <!-- <a class="btn btn-outline-success" type="submit" href="logout.php">ออกจากระบบ</a> -->
+        <a class="btn btn-success" type="submit" href="logout.php">ออกจากระบบ</a>
       </form>
       </div>
     </div>
@@ -128,62 +132,20 @@ a {
 <style>
 
 
-.container{
-    margin-top: 20px;
-}
+
+
+/* .containercard{
+    margin-top: 60px;
+  } */
 
 
 
 </style>
 
 
-<div class="container">
 
-<div class="row row-cols-1 row-cols-md-3 g-4">
-  <div class="col">
-    <div class="card">
-      <img src="https://cms.dmpcdn.com/travel/2022/01/26/6220e0f0-7e53-11ec-a887-811810290a51_webp_original.jpg" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-      </div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="card">
-      <img src="https://www.paiduaykan.com/travel/wp-content/uploads/2022/02/SON08589.jpg" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-      </div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="card">
-      <img src="https://cms.dmpcdn.com/travel/2022/01/26/ce0ff3a0-7e53-11ec-809f-1f424036454f_webp_original.jpg" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
-      </div>
-    </div>
-  </div>
-</div>
 
-</div>
 
-<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="https://cdn.discordapp.com/attachments/1157663249949532224/1222458317092159529/2879493.jpg?ex=66164a06&is=6603d506&hm=b3d34f390680e16d59060895c394254d31e23b05357a31b1bc6c29b8d9b8e7b9&" class="d-block w-100" alt="...">
-    </div>
-    <div class="carousel-item">
-      <img src="..." class="d-block w-100" alt="...">
-    </div>
-    <div class="carousel-item">
-      <img src="..." class="d-block w-100" alt="...">
-    </div>
-  </div>
-</div>
 </body>
 </html>
 

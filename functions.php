@@ -35,9 +35,9 @@
         }
 
         public function signin($username, $password) {
-            $signinquery = mysqli_query($this->dbcon, "SELECT Id_manager, username, password FROM manager WHERE username = '$username'");
-            $adminquery = mysqli_query($this->dbcon, "SELECT id_admin, username, password FROM admin WHERE username = '$username'");
-            $spequery = mysqli_query($this->dbcon, "SELECT id_spe, username, password FROM spe WHERE username = '$username'");
+            $signinquery = mysqli_query($this->dbcon, "SELECT Id_manager, username, password FROM manager WHERE username = '$username'AND password ='$password'");
+            $adminquery = mysqli_query($this->dbcon, "SELECT id_admin, username, password FROM admin WHERE username = '$username' AND password ='$password'");
+            $spequery = mysqli_query($this->dbcon, "SELECT id_spe, username, password FROM spe WHERE username = '$username' AND password ='$password'");
             
             $userData = null;
         
@@ -67,6 +67,10 @@
 
         public function addplaces($name_places,$details_places,$contact_places,$id_manager) {
             $adpl = mysqli_query($this->dbcon , "INSERT INTO places_info(name_places, details_places, contact_places ,id_manager) VALUE('$name_places','$details_places','$contact_places','$id_manager')");
+            return $adpl;
+        }
+        public function addplacesbyadmin($name_places,$details_places,$contact_places,$id_Admin) {
+            $adpl = mysqli_query($this->dbcon , "INSERT INTO places_info(name_places, details_places, contact_places ,id_Admin) VALUE('$name_places','$details_places','$contact_places','$id_Admin')");
             return $adpl;
         }
 
