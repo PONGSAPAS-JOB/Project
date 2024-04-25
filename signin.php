@@ -1,6 +1,9 @@
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <?php 
     session_start();
     include_once('functions.php');
+    
     $userdata = new DB_con();
 
     if (isset($_POST['login'])) {
@@ -13,27 +16,75 @@
             if (isset($userData['Id_manager'])) {
                 $_SESSION['Id_manager'] = $userData['Id_manager'];
                 $_SESSION['username'] = $userData['username'];
-    
-                echo "<script>alert('เข้าสู่ระบบแล้ว!');</script>";
-                echo "<script>window.location.href='home.php'</script>";
+                
+                echo "<script>
+                $(document).ready(function() {
+                    Swal.fire({
+                        title: 'Login Success!',
+                        text: 'กำลังเข้าสู่ระบบ',
+                        icon: 'success',
+                        timer: 1000,
+                        showConfirmButton: false
+                    }).then(() => {
+                        window.location.href = 'home.php';
+                    });
+                });
+            </script>";
+            
+            
+                //  "<script>window.location.href='home.php'</script>";
     
             } elseif (isset($userData['id_admin'])) {
                 $_SESSION['id_admin'] = $userData['id_admin'];
                 $_SESSION['username'] = $userData['username'];
     
-                echo "<script>alert('เข้าสู่ระบบแล้ว!');</script>";
-                echo "<script>window.location.href='homeadmin.php'</script>";
+                echo "<script>
+                $(document).ready(function() {
+                    Swal.fire({
+                        title: 'Login Success!',
+                        text: 'กำลังเข้าสู่ระบบ',
+                        icon: 'success',
+                        timer: 1000,
+                        showConfirmButton: false
+                    }).then(() => {
+                        window.location.href = 'homeadmin.php';
+                    });
+                });
+            </script>";
     
             } elseif (isset($userData['id_spe'])) {
                 $_SESSION['id_spe'] = $userData['id_spe'];
                 $_SESSION['username'] = $userData['username'];
     
-                echo "<script>alert('เข้าสู่ระบบแล้ว!');</script>";
-                echo "<script>window.location.href='homespe.php'</script>";
+                echo "<script>
+                $(document).ready(function() {
+                    Swal.fire({
+                        title: 'Login Success!',
+                        text: 'กำลังเข้าสู่ระบบ',
+                        icon: 'success',
+                        timer: 1000,
+                        showConfirmButton: false
+                    }).then(() => {
+                        window.location.href = 'homespe.php';
+                    });
+                });
+            </script>";
             }
         } else {
-            echo "<script>alert('ชื่อผู้ใช้งานหรือรหัสผ่านผิด โปรดลองอีกครั้ง!');</script>";
-            echo "<script>window.location.href='signin.php'</script>";
+            echo "<script>
+            $(document).ready(function() {
+                Swal.fire({
+                    title: 'Login Failed!',
+                    text: 'ชื่อผู้ใช้งานหรือรหัสผ่านผิด โปรดลองอีกครั้ง!',
+                    icon: 'error',
+                    timer: 3000,
+                    showConfirmButton: false
+                }).then(() => {
+                    window.location.href = 'signin.php';
+                });
+            });
+        </script>";
+    
         }
     }
 
@@ -43,6 +94,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>เข้าสู่ระบบ</title>
@@ -95,7 +147,7 @@ input{
     .containerbg{
         
           width: 100%; /* Set the initial width */
-        max-width: 400px; /* Set the maximum width */
+        max-width: 450px; /* Set the maximum width */
         height: 80vh; /* Allow the height to adjust proportionally */
         margin: 0 auto; /* Center the container */
         transition: transform 0.3s ease; /* Smooth transition when scaling */
@@ -115,14 +167,15 @@ input{
    
     .title{
         margin-top: 3%;
-        margin-left: 20px;
+        
+        text-align: center;
     }
     .detail{
-        margin-left: 14px;
+        text-align: center;
         font-size: 15px;
     }
     .subtitile{
-        margin-left: 40%;
+        text-align: center;
         margin-top: 20%;
        
 
@@ -152,7 +205,7 @@ input{
          margin-top: 3rem;
     }
     #createaccount{
-        margin-left: 23%;
+        margin-left: 25%;
        
     }
     .create{
@@ -160,7 +213,7 @@ input{
     }
     .foget{
         margin-top: 3%;
-        margin-left: 65%;
+        margin-left: 62%;
     }
 
     .back{
@@ -207,7 +260,6 @@ input{
         
     </div>
     
-
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>

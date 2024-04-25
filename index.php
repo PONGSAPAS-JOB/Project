@@ -1,3 +1,5 @@
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <?php 
     include_once('functions.php');
     $userdata = new DB_con();
@@ -11,11 +13,34 @@
         $sql = $userdata->registration($username,$useremail,$phone,$password);
 
         if ($sql) {
-            echo "<script>alert('ลงทะเบียนเสร็จสิ้น');</script>";
-            echo "<script>window.location.href='signin.php'</script>";
+            echo "<script>
+                $(document).ready(function() {
+                    Swal.fire({
+                        title: 'Register Success!',
+                        text: 'กำลังบันทึกข้อมูล',
+                        icon: 'success',
+                        timer: 1000,
+                        showConfirmButton: false
+                    }).then(() => {
+                        window.location.href = 'signin.php';
+                    });
+                });
+            </script>";
         } else {
-            echo "<script>alert('ลงทะเบียนผิดพลาด โปรดลองอีกครั้ง');</script>";
-            echo "<script>window.location.href='index.php'</script>";
+            echo "<script>
+            $(document).ready(function() {
+                Swal.fire({
+                    title: 'Register Failed!',
+                    text: 'ลงทะเบียนผิดพลาด โปรดลองอีกครั้ง!',
+                    icon: 'error',
+                    timer: 3000,
+                    showConfirmButton: false
+                }).then(() => {
+                    window.location.href = 'index.php';
+                });
+            });
+        </script>";
+
         }
     }
 ?>
@@ -77,17 +102,21 @@ input{
     background-color:#FFFFFF;
 }
 
+span{
+    margin-left: 5%;
+}
+
     @import url('https://fonts.googleapis.com/css2?family=Lily+Script+One&display=swap');
   
     .containerbg{
         
           width: 100%; /* Set the initial width */
         max-width: 700px; /* Set the maximum width */
-        height: 84vh; /* Allow the height to adjust proportionally */
+        height: 90vh; /* Allow the height to adjust proportionally */
         margin: 0 auto; /* Center the container */
         transition: transform 0.3s ease; /* Smooth transition when scaling */
         overflow: hidden; 
-        margin-top: 0.5;
+        margin-top: -2%;
         opacity: 0.9;
         border-radius: 20px;
   background-color: #f0f0f0;
@@ -101,7 +130,7 @@ input{
     }
    
     .title{
-        margin-top: 3%;
+        margin-top: 1%;
         margin-left: 37%;
     }
     .detail{
@@ -130,6 +159,7 @@ input{
          margin-right: auto;
          margin-top: 1rem;
          background-color:#FFFFFF;
+         padding: 10px;
     }
     .btn{
         
@@ -164,15 +194,11 @@ input{
         ลงทะเบียนเพื่อเข้าสู่ระบบ
         </div>
         <hr>
-        <div class = "subtitile">
-            <h2 id="login">
-            กรอกข้อมูลเลย 
-            </h2>
-            </div>
+    
         
         </div>
         <form method="post">
-        <div class ="username">
+        <div class ="username" >
         <input type="text" class="form-control" id="username" name="username"   placeholder="Username"  onblur="checkusername(this.value)" required>
         <span id="usernameavailable"></span>
 
@@ -189,7 +215,7 @@ input{
         </form>
 
         <div class="signin">
-        <A>Do you already have an account? <A id="signin" href="signin.php"><h7>Sing in</h7> </A></A>
+        <A>Do you already have an account? <A id="signin" href="signin.php"><h7>Sign in</h7> </A></A>
         </div>
         
         

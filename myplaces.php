@@ -123,7 +123,7 @@ nav.navbar {
       <a class="navbar-brand " href="#">Welcome,  </a> 
       <a class="navbar-brand" href="#">
       <span class="app-name"><?php echo $_SESSION['username']; ?></span>
-      <span class="app-desc">ผู้ดูเเลระบบ</span>
+      <span class="app-desc">เจ้าของสถานที่</span>
       
     </a>
     <img src="img/pro.jpg" class="rounded-circle " alt="...">
