@@ -2,8 +2,20 @@
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <?php
     session_start();
+    echo "<script>
+    $(document).ready(function() {
+        Swal.fire({
+            title: 'Logout!',
+            text: 'กำลังออกจากระบบ',
+            icon: 'success',
+            timer: 1500,
+            showConfirmButton: false
+        }).then(() => {
+            window.location.href = 'signin.php';
+        });
+    });
+</script>";
     session_destroy();
     
-    header("location: signin.php");
 
 ?>

@@ -44,7 +44,7 @@
 <style>
 body {
     margin-top: 0px;
-    background-image: url('img/img3.png');
+    background-image: url('img/img4.png');
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: 100% 100%;
@@ -166,7 +166,10 @@ a {
 
 
 .container{
-    margin-top: 40px;
+    width: 100%; /* Set the initial width */
+    max-width: 1000px;
+    margin-top: 10px;
+
 }
 
 .addplace  {

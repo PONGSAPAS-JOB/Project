@@ -23,7 +23,7 @@
 <style>
 body {
     margin-top: 0px;
-    background-image: url('img/img3.png');
+    background-image: url('img/img4.png');
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: 100% 100%;
@@ -152,7 +152,8 @@ nav.navbar {
     
 }
 .card{
-  width: 85%;
+  width: 100%; /* Set the initial width */
+    max-width: 1000px;
     height: 30vh;
     margin: 0px auto 0; /* Adjusted margin-top to 60px to place container below navbar */
     transition: transform 0.3s ease;
@@ -200,6 +201,8 @@ nav.navbar {
       </div>
 
     </div>
+    
+    
   </div>
 </div>
 
