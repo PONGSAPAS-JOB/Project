@@ -74,7 +74,15 @@
             return $adpl;
         }
 
-        public function fetchdata() {
+
+        public function fetchdataarea() {
+            $result = mysqli_query($this->dbcon, "SELECT * FROM area_info");
+            return $result;
+
+        }
+
+
+        public function fetchdataplaces() {
             $result = mysqli_query($this->dbcon, "SELECT * FROM places_info");
             return $result;
 
