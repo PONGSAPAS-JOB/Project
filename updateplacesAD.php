@@ -1,5 +1,3 @@
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <?php
 
 session_start();
@@ -12,47 +10,26 @@ if ($_SESSION['id_admin'] == "") {
     <?php
     include_once('functions.php');
     $userdata = new DB_con();
-
-    if (isset($_POST['insert'])) {
-        $name_Area = $_POST['name_Area'];
-        $location_Area = $_POST['location_Area'];
-        $info_Area = $_POST['info_Area'];
-        $Culture_details = $_POST['Culture_details'];
-        $img_Area1 = $_POST['img_Area1'];
+    $updatedata = new DB_con();
 
 
-        $sql = $userdata->addarea($name_Area, $location_Area, $info_Area, $Culture_details, $img_Area1);
+    if (isset($_POST['update'])) {
+        $id_places = $_GET['id'];
+        $name_places = $_POST['name_places'];
+        $details_places = $_POST['details_places'];
+        $contact_places = $_POST['contact_places'];
+        $sql = $updatedata->updateplaces($name_places, $details_places, $contact_places, $id_places);
 
         if ($sql) {
-            echo "<script>
-            $(document).ready(function() {
-                Swal.fire({
-                    title: 'Add Area Success!',
-                    text: 'กำลังบันทึกข้อมูลสถานที่',
-                    icon: 'success',
-                    timer: 1000,
-                    showConfirmButton: false
-                }).then(() => {
-                    window.location.href = 'areaandplacesMG.php';
-                });
-            });
-        </script>";
+            echo "<script>alert('เเก้ไขสถานที่เสร็จสิ้น');</script>";
+            echo "<script>window.location.href='areaandplacesMG.php'</script>";
         } else {
-            echo "<script>
-            $(document).ready(function() {
-                Swal.fire({
-                    title: 'Add Area Failed!',
-                    text: 'ไม่สามารถเพิ่มสถานที่ได้ โปรดลองอีกครั้ง!',
-                    icon: 'error',
-                    timer: 3000,
-                    showConfirmButton: false
-                }).then(() => {
-                    window.location.href = 'addarea.php';
-                });
-            });
-        </script>";
+            echo "<script>alert('ไม่สามารถเเก้ไขสถานที่ได้ โปรดลองอีกครั้ง');</script>";
+            echo "<script>window.location.href='updateplacesAD.php'</script>";
         }
     }
+
+
     ?>
 
     <!DOCTYPE html>
@@ -65,12 +42,12 @@ if ($_SESSION['id_admin'] == "") {
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Lily+Script+One&display=swap" rel="stylesheet">
-        <title>เพิ่มข้อมูลสถานที่ท่องเที่ยวหลัก</title>
+        <title>เเก้ไขสถานที่</title>
     </head>
     <style>
         body {
             margin-top: 0px;
-            background-image: url('img/img4.png');
+            background-image: url('img/img3.png');
             background-repeat: no-repeat;
             background-attachment: fixed;
             background-size: 100% 100%;
@@ -189,14 +166,10 @@ if ($_SESSION['id_admin'] == "") {
                 </div>
             </div>
         </nav>
+
         <style>
             .container {
                 margin-top: 40px;
-                width: 100%;
-                /* Set the initial width */
-                max-width: 1000px;
-                margin-top: 10px;
-
             }
 
             .addplace {
@@ -214,61 +187,49 @@ if ($_SESSION['id_admin'] == "") {
         </style>
 
         <div class="addplace "><a></a></div>
+
+
+
         <div class="container">
-            <h1 class="mt-5"> เเก้ไขข้อมูลสถานที่ท่องเที่ยวหลัก </h1>
+            <h1 class="mt-5"> เเก้ไขข้อมูลสถานที่ท่องเที่ยว </h1>
             <hr>
+            <?php
 
-            <form method="post">
-                <div class="mb-3">
-                    <label for="name_Area" class="form-label">ชื่อสถานที่หลัก</label>
-                    <input type="text" class="form-control" id="name_Area" name="name_Area" aria-describedby="ชื่อสถานที่" onblur="nameareacheck(this.value)" required>
-                    <span id="areanameavailable"></span>
-                </div>
-                <div class="mb-3">
-                    <label for="location_Area" class="form-label">ที่อยู่ของสถานที่</label>
-                    <textarea type="text" class="form-control" row="10" id="location_Area" name="location_Area" aria-describedby="ที่อยู่ของสถานที่" required>
-                    <?php echo $row['location_Area']; ?>
-                    </textarea>
-                </div>
-                <div class="mb-3">
-                    <label for="info_Area" class="form-label">ข้อมูลสถานที่</label>
-                    <textarea type="text" class="form-control" row="10" id="info_Area" name="info_Area" aria-describedby="ข้อมูลสถานที่" required>
-                    <?php echo $row['info_Area']; ?>
-                    </textarea>
+            $id_places = $_GET['id'];
+            $updateplaces = new DB_con();
+            $sql = $updateplaces->fetchonerecord($id_places);
+            while ($row = mysqli_fetch_array($sql)) {
 
-                </div>
-                <div class="mb-3">
-                    <label for="Culture_details" class="form-label">วัฒนธรรมที่มีในพื้นที่</label>
-                    <textarea type="text" class="form-control" row="10" id="Culture_details" name="Culture_details" aria-describedby="วัฒนธรรมที่มีในพื้นที่">
-                    <?php echo $row['Culture_details']; ?>
-                    </textarea>
+            ?>
 
-                </div>
-                <div class="mb-3">
-                    <label for="image" class="form-label">รูปภาพสถานที่</label>
-                    <input type="file" class="form-control" id="image" name="image" accept="image/*">
-                </div>
+                <form method="post">
+                    <div class="mb-3">
+                        <label for="name_places" class="form-label">ชื่อสถานที่</label>
+                        <input type="text" class="form-control" id="name_places" name="name_places" value="<?php echo $row['name_places']; ?>" aria-describedby="ชื่อสถานที่" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="details_places" class="form-label">ข้อมูลทั่วไปของสถานที่</label>
+                        <textarea type="text" class="form-control" id="details_places" name="details_places" aria-describedby="ข้อมูลทั่วไปของสถานที่" required>
+                <?php echo $row['details_places']; ?>
+                </textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="contact_places" class="form-label">ข้อมูลติดต่อ สถานที่</label>
+                        <input type="text" class="form-control" id="contact_places" name="contact_places" value="<?php echo $row['contact_places']; ?>" aria-describedby="ข้อมูลติดต่อ สถานที่" required>
+                    </div>
 
-                <button type="submit" name="insert" id="insert" class="btn btn-warning">เเก้ไขข้อมูลสถานที่หลักใหม่</button>
+                <?php
+            }
+                ?>
 
-            </form>
+                <button type="submit" name="update" id="update" class="btn btn-warning">เเก้ไขข้อมูลสถานที่ใหม่</button>
+
+                </form>
         </div>
 
 
-        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-        <script>
-            function nameareacheck(val) {
-                $.ajax({
-                    type: 'POST',
-                    url: 'checkarea_available.php',
-                    data: 'name_Area=' + val,
-                    success: function(data) {
-                        $('#areanameavailable').html(data);
-                    }
-                });
 
-            }
-        </script>
+
 
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
