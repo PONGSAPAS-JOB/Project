@@ -20,7 +20,7 @@ if ($_SESSION['id_admin'] == "") {
         $info_Area = $_POST['info_Area'];
         $Culture_details = $_POST['Culture_details'];
         $img_Area1 = $_POST['img_Area1'];
-        $sql = $updatedata->updateplaces($name_Area, $location_Area, $info_Area, $Culture_details, $img_Area1, $id_Area);
+        $sql = $updatedata->updateArea($name_Area, $location_Area, $info_Area, $Culture_details, $img_Area1, $id_Area);
 
         if ($sql) {
             echo "<script>alert('เเก้ไขสถานที่เสร็จสิ้น');</script>";
@@ -188,18 +188,16 @@ if ($_SESSION['id_admin'] == "") {
             }
         </style>
 
+
         <div class="addplace "><a></a></div>
-
-
-
         <div class="container">
-            <h1 class="mt-5"> เเก้ไขข้อมูลสถานที่ท่องเที่ยว </h1>
+            <h1 class="mt-5"> เเก้ไขข้อมูลสถานที่ท่องเที่ยวหลัก </h1>
             <hr>
             <?php
 
             $id_Area = $_GET['id'];
             $updateArea = new DB_con();
-            $sql = $updateArea->fetchonerecord($id_Area);
+            $sql = $updateArea->fetchonerecordArea($id_Area);
             while ($row = mysqli_fetch_array($sql)) {
 
             ?>
@@ -207,35 +205,41 @@ if ($_SESSION['id_admin'] == "") {
                 <form method="post">
                     <div class="mb-3">
                         <label for="name_Area" class="form-label">ชื่อสถานที่หลัก</label>
-                        <input type="text" class="form-control" id="name_Area" name="name_Area" aria-describedby="ชื่อสถานที่" value="<?php echo $row['name_Area']; ?>" required>
-
+                        <input type="text" class="form-control" id="name_Area" name="name_Area" value="<?php echo $row['name_Area']; ?>" aria-describedby="ชื่อสถานที่" required>
+                        <span id="areanameavailable"></span>
                     </div>
                     <div class="mb-3">
                         <label for="location_Area" class="form-label">ที่อยู่ของสถานที่</label>
-                        <textarea type="text" class="form-control" row="10" id="location_Area" name="location_Area" aria-describedby="ที่อยู่ของสถานที่" required></textarea>
+                        <textarea type="text" class="form-control" row="10" id="location_Area" name="location_Area" aria-describedby="ที่อยู่ของสถานที่" required>
+                    <?php echo $row['location_Area']; ?>
+                    </textarea>
                     </div>
                     <div class="mb-3">
                         <label for="info_Area" class="form-label">ข้อมูลสถานที่</label>
-                        <textarea type="text" class="form-control" row="10" id="info_Area" name="info_Area" aria-describedby="ข้อมูลสถานที่" required></textarea>
+                        <textarea type="text" class="form-control" row="10" id="info_Area" name="info_Area" aria-describedby="ข้อมูลสถานที่" required>
+                    <?php echo $row['info_Area']; ?>
+                    </textarea>
 
                     </div>
                     <div class="mb-3">
                         <label for="Culture_details" class="form-label">วัฒนธรรมที่มีในพื้นที่</label>
-                        <textarea type="text" class="form-control" row="10" id="Culture_details" name="Culture_details" aria-describedby="วัฒนธรรมที่มีในพื้นที่"></textarea>
+                        <textarea type="text" class="form-control" row="10" id="Culture_details" name="Culture_details" aria-describedby="วัฒนธรรมที่มีในพื้นที่">
+                    <?php echo $row['Culture_details']; ?>
+                    </textarea>
 
                     </div>
                     <div class="mb-3">
                         <label for="image" class="form-label">รูปภาพสถานที่</label>
                         <input type="file" class="form-control" id="image" name="image" accept="image/*">
                     </div>
-
-                    <button type="submit" name="insert" id="insert" class="btn btn-warning">เพิ่มข้อมูลสถานที่หลักใหม่</button>
+                <?php
+            }
+                ?>
+                <button type="submit" name="update" id="update" class="btn btn-warning">เเก้ไขข้อมูลสถานที่หลักใหม่</button>
 
                 </form>
-            <?php
-            }
-            ?>
         </div>
+
 
 
 

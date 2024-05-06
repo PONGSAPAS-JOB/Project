@@ -1,8 +1,10 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <?php
-    session_start();
-    echo "<script>
+session_start();
+//  "<script>alert('Logout!');</script>";
+//  "<script>window.location.href='signin.php'</script>";
+echo  "<script>
     $(document).ready(function() {
         Swal.fire({
             title: 'Logout!',
@@ -15,7 +17,7 @@
         });
     });
 </script>";
-    session_destroy();
-    
+session_destroy();
+
 
 ?>

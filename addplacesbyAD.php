@@ -23,33 +23,37 @@ if ($_SESSION['id_admin'] == "") {
         $sql = $userdata->addplacesbyadmin($name_places, $details_places, $contact_places, $name_Area, $_SESSION['id_admin']);
 
         if ($sql) {
-            echo "<script>
-            $(document).ready(function() {
-                Swal.fire({
-                    title: 'Add Places Success!',
-                    text: 'กำลังบันทึกข้อมูลสถานที่',
-                    icon: 'success',
-                    timer: 1000,
-                    showConfirmButton: false
-                }).then(() => {
-                    window.location.href = 'areaandplacesMG.php';
+            // echo "<script>alert('Add Places Success!');</script>";
+            // echo "<script>window.location.href='areaandplacesMG.php'</script>";
+            echo  "<script>
+                $(document).ready(function() {
+                    Swal.fire({
+                        title: 'Add Places Success!',
+                        text: 'กำลังบันทึกข้อมูลสถานที่',
+                        icon: 'success',
+                        timer: 1000,
+                        showConfirmButton: false
+                    }).then(() => {
+                        window.location.href = 'areaandplacesMG.php';
+                    });
                 });
-            });
-        </script>";
+            </script>";
         } else {
-            echo "<script>
-            $(document).ready(function() {
-                Swal.fire({
-                    title: 'Add Places Failed!',
-                    text: 'ไม่สามารถเพิ่มสถานที่ได้ โปรดลองอีกครั้ง!',
-                    icon: 'error',
-                    timer: 3000,
-                    showConfirmButton: false
-                }).then(() => {
-                    window.location.href = 'addplacesbyAD.php';
+            // echo "<script>alert('Add Places Failed!');</script>";
+            // echo "<script>window.location.href='addplacesbyAD.php'</script>";
+            echo  "<script>
+                $(document).ready(function() {
+                    Swal.fire({
+                        title: 'Add Places Failed!',
+                        text: 'ไม่สามารถเพิ่มสถานที่ได้ โปรดลองอีกครั้ง!',
+                        icon: 'error',
+                        timer: 3000,
+                        showConfirmButton: false
+                    }).then(() => {
+                        window.location.href = 'addplacesbyAD.php';
+                    });
                 });
-            });
-        </script>";
+            </script>";
         }
     }
     ?>

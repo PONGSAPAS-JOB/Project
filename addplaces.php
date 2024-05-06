@@ -14,41 +14,46 @@ if ($_SESSION['Id_manager'] == "") {
     $userdata = new DB_con();
 
     if (isset($_POST['insert'])) {
+        $name_Area = $_POST['name_Area'];
         $name_places = $_POST['name_places'];
         $details_places = $_POST['details_places'];
         $contact_places = $_POST['contact_places'];
 
 
-        $sql = $userdata->addplaces($name_places, $details_places, $contact_places, $_SESSION['Id_manager']);
+        $sql = $userdata->addplaces($name_places, $details_places, $contact_places, $name_Area, $_SESSION['Id_manager']);
 
         if ($sql) {
-            echo "<script>
-            $(document).ready(function() {
-                Swal.fire({
-                    title: 'Add Places Success!',
-                    text: 'กำลังบันทึกข้อมูลสถานที่',
-                    icon: 'success',
-                    timer: 1000,
-                    showConfirmButton: false
-                }).then(() => {
-                    window.location.href = 'myplaces.php';
+            // echo "<script>alert('Add Places Success!');</script>";
+            // echo "<script>window.location.href='myplaces.php'</script>";
+            echo  "<script>
+                $(document).ready(function() {
+                    Swal.fire({
+                        title: 'Add Places Success!',
+                        text: 'กำลังบันทึกข้อมูลสถานที่',
+                        icon: 'success',
+                        timer: 1000,
+                        showConfirmButton: false
+                    }).then(() => {
+                        window.location.href = myplaces.php.php';
+                    });
                 });
-            });
-        </script>";
+            </script>";
         } else {
-            echo "<script>
-            $(document).ready(function() {
-                Swal.fire({
-                    title: 'Add Places Failed!',
-                    text: 'ไม่สามารถเพิ่มสถานที่ได้ โปรดลองอีกครั้ง!',
-                    icon: 'error',
-                    timer: 3000,
-                    showConfirmButton: false
-                }).then(() => {
-                    window.location.href = 'addplaces.php';
+            // echo "<script>alert('Add Places Failed!');</script>";
+            // echo "<script>window.location.href='addplaces.php'</script>";
+            echo  "<script>
+                $(document).ready(function() {
+                    Swal.fire({
+                        title: 'Add Places Failed!',
+                        text: 'ไม่สามารถเพิ่มสถานที่ได้ โปรดลองอีกครั้ง!',
+                        icon: 'error',
+                        timer: 3000,
+                        showConfirmButton: false
+                    }).then(() => {
+                        window.location.href = 'addplaces.php.php';
+                    });
                 });
-            });
-        </script>";
+            </script>";
         }
     }
     ?>
@@ -146,10 +151,11 @@ if ($_SESSION['Id_manager'] == "") {
 
 
 
-        <nav class="navbar navbar-expand-lg navbar-light bg-warning">
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-warning " style="position: fixed;">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">
-                    <span class="app-name">Theaw-kan-mai App </span>
+                    <span class="app-name">Theaw-kan-mai App</span>
                     <span class="app-desc">Location information management application</span>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -191,6 +197,7 @@ if ($_SESSION['Id_manager'] == "") {
         </nav>
         <style>
             .container {
+                margin-top: 40px;
                 width: 100%;
                 /* Set the initial width */
                 max-width: 1000px;
@@ -211,13 +218,36 @@ if ($_SESSION['Id_manager'] == "") {
                 /* Center text within the button */
             }
         </style>
+        <?php
+        include_once('functions.php');
+        $fetchdataarea = new DB_con();
+        $sql = $fetchdataarea->fetchdataarea();
 
+
+        ?>
         <div class="addplace "><a></a></div>
         <div class="container">
             <h1 class="mt-5"> เพิ่มข้อมูลสถานที่ท่องเที่ยว </h1>
             <hr>
 
             <form method="post">
+                <div class="mb-3">
+                    <label for="name_Area" class="form-label">ต้องการเพิ่มในสถานที่บริเวณไหน</label>
+                    <select class="form-select" id="name_Area" name="name_Area" aria-describedby="ชื่อสถานที่หลัก" required>
+                        <!-- Add option elements for each main location -->
+                        <option value="" disabled selected>โปรดเลือกสถานที่</option>
+                        <?php
+                        while ($row = mysqli_fetch_array($sql)) {
+                        ?>
+                            <!-- Ensure to echo the value of name_Area -->
+                            <option value='<?php echo $row['name_Area']; ?>'><?php echo $row['name_Area']; ?></option>
+                        <?php
+                        }
+                        ?>
+                    </select>
+                </div>
+
+
                 <div class="mb-3">
                     <label for="name_places" class="form-label">ชื่อสถานที่</label>
                     <input type="text" class="form-control" id="name_places" name="name_places" aria-describedby="ชื่อสถานที่" onblur="nameplacescheck(this.value)" required>

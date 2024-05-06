@@ -229,6 +229,7 @@ if ($_SESSION['id_admin'] == "") {
               <tr>
                 <th scope="col">รหัสสถานที่</th>
                 <th scope="col">รายการสถานที่ท่องเที่ยวย่อย</th>
+                <th scope="col">สถานที่หลักที่อยู่</th>
                 <th scope="col">เจ้าของสถานที่</th>
                 <th scope="col">เเก้ไข</th>
                 <th scope="col">ลบ</th>
@@ -263,6 +264,7 @@ if ($_SESSION['id_admin'] == "") {
                 <tr>
                   <td><?php echo $row['id_places']; ?></td>
                   <td><?php echo $row['name_places']; ?></td>
+                  <td><?php echo $row['id_Area']; ?></td>
                   <td><?php echo $manager_email; ?></td> <!-- Display 'admin' if manager info is not available -->
                   <td><a href="updateplacesAD.php?id=<?php echo $row['id_places']; ?>">แก้ไข</a></td>
                   <td><a href="deleteplacesAD.php?del=<?php echo $row['id_places']; ?>">ลบ</a></td>

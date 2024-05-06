@@ -224,8 +224,6 @@ if ($_SESSION['id_admin'] == "") {
         </div>
 
 
-        </div>
-
 
 
 

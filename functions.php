@@ -1,7 +1,7 @@
 <?php
 
 define('DB_SERVER', 'localhost');
-define('DB_USER', 'root');
+define('DB_USER', 'id21649318_root');
 define('DB_PASS', '');
 define('DB_NAME', 'theawkanmai');
 
@@ -82,10 +82,24 @@ class DB_con
         return $checkarea;
     }
 
-    public function addplaces($name_places, $details_places, $contact_places, $id_manager)
+    public function addplaces($name_places, $details_places, $contact_places, $name_Area, $id_manager)
     {
-        $adpl = mysqli_query($this->dbcon, "INSERT INTO places_info(name_places, details_places, contact_places ,id_manager) VALUE('$name_places','$details_places','$contact_places','$id_manager')");
-        return $adpl;
+        // First, retrieve the id_Area corresponding to the selected name_Area
+        $getAreaIdQuery = "SELECT id_Area FROM area_info WHERE name_Area = '$name_Area'";
+        $result = mysqli_query($this->dbcon, $getAreaIdQuery);
+        if ($result && mysqli_num_rows($result) > 0) {
+            // Fetch the id_Area from the result
+            $row = mysqli_fetch_assoc($result);
+            $id_Area = $row['id_Area'];
+            // Now, insert the place with the retrieved id_Area
+            $adplad = mysqli_query($this->dbcon, "INSERT INTO places_info(name_places, details_places, contact_places, id_Area, id_manager) VALUES ('$name_places', '$details_places', '$contact_places', '$id_Area', '$id_manager')");
+
+            return $adplad;
+        } else {
+
+            // Handle the case when the selected area is not found
+            return false; // or handle the error as needed
+        }
     }
     public function addplacesbyadmin($name_places, $details_places, $contact_places, $name_Area, $id_Admin)
     {
@@ -141,6 +155,12 @@ class DB_con
         return $result;
     }
 
+    public function fetchonerecordArea($id_Area)
+    {
+        $result = mysqli_query($this->dbcon, "SELECT * FROM Area_info WHERE id_Area = '$id_Area' ");
+        return $result;
+    }
+
 
 
     public function updateplaces($name_places, $details_places, $contact_places, $id_places)
@@ -163,16 +183,17 @@ class DB_con
 
     public function updateArea($name_Area, $location_Area, $info_Area, $Culture_details, $img_Area1, $id_Area)
     {
-        $result = mysqli_query($this->dbcon, "UPDATE places_info SET 
+        $result = mysqli_query($this->dbcon, "UPDATE area_info SET 
                     name_Area = '$name_Area',
                     location_Area = '$location_Area',
-                    info_Area = '$info_Area'
-                    Culture_details = '$Culture_details'
+                    info_Area = '$info_Area',
+                    Culture_details = '$Culture_details',
                     img_Area1 = '$img_Area1'
                     WHERE id_Area = '$id_Area'
                     ");
         return $result;
     }
+
 
 
     public function deleteArea($id_Area)

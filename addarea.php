@@ -24,33 +24,37 @@ if ($_SESSION['id_admin'] == "") {
         $sql = $userdata->addarea($name_Area, $location_Area, $info_Area, $Culture_details, $img_Area1);
 
         if ($sql) {
-            echo "<script>
-            $(document).ready(function() {
-                Swal.fire({
-                    title: 'Add Area Success!',
-                    text: 'กำลังบันทึกข้อมูลสถานที่',
-                    icon: 'success',
-                    timer: 1000,
-                    showConfirmButton: false
-                }).then(() => {
-                    window.location.href = 'areaandplacesMG.php';
+            // echo "<script>alert('Add Area Success!');</script>";
+            // echo "<script>window.location.href='areaandplacesMG.php'</script>";
+            echo   "<script>
+                $(document).ready(function() {
+                    Swal.fire({
+                        title: 'Add Area Success!',
+                        text: 'กำลังบันทึกข้อมูลสถานที่',
+                        icon: 'success',
+                        timer: 1000,
+                        showConfirmButton: false
+                    }).then(() => {
+                        window.location.href = 'areaandplacesMG.php';
+                    });
                 });
-            });
-        </script>";
+            </script>";
         } else {
-            echo "<script>
-            $(document).ready(function() {
-                Swal.fire({
-                    title: 'Add Area Failed!',
-                    text: 'ไม่สามารถเพิ่มสถานที่ได้ โปรดลองอีกครั้ง!',
-                    icon: 'error',
-                    timer: 3000,
-                    showConfirmButton: false
-                }).then(() => {
-                    window.location.href = 'addarea.php';
+            // echo "<script>alert('Add Area Failed!');</script>";
+            // echo "<script>window.location.href='addarea.php'</script>";
+            echo   "<script>
+                $(document).ready(function() {
+                    Swal.fire({
+                        title: 'Add Area Failed!',
+                        text: 'ไม่สามารถเพิ่มสถานที่ได้ โปรดลองอีกครั้ง!',
+                        icon: 'error',
+                        timer: 3000,
+                        showConfirmButton: false
+                    }).then(() => {
+                        window.location.href = 'addarea.php';
+                    });
                 });
-            });
-        </script>";
+            </script>";
         }
     }
     ?>
@@ -215,7 +219,7 @@ if ($_SESSION['id_admin'] == "") {
 
         <div class="addplace "><a></a></div>
         <div class="container">
-            <h1 class="mt-5"> เเก้ไขข้อมูลสถานที่ท่องเที่ยวหลัก </h1>
+            <h1 class="mt-5"> เพิ่มข้อมูลสถานที่ท่องเที่ยวหลัก </h1>
             <hr>
 
             <form method="post">
@@ -227,20 +231,20 @@ if ($_SESSION['id_admin'] == "") {
                 <div class="mb-3">
                     <label for="location_Area" class="form-label">ที่อยู่ของสถานที่</label>
                     <textarea type="text" class="form-control" row="10" id="location_Area" name="location_Area" aria-describedby="ที่อยู่ของสถานที่" required>
-                    <?php echo $row['location_Area']; ?>
+
                     </textarea>
                 </div>
                 <div class="mb-3">
                     <label for="info_Area" class="form-label">ข้อมูลสถานที่</label>
                     <textarea type="text" class="form-control" row="10" id="info_Area" name="info_Area" aria-describedby="ข้อมูลสถานที่" required>
-                    <?php echo $row['info_Area']; ?>
+
                     </textarea>
 
                 </div>
                 <div class="mb-3">
                     <label for="Culture_details" class="form-label">วัฒนธรรมที่มีในพื้นที่</label>
                     <textarea type="text" class="form-control" row="10" id="Culture_details" name="Culture_details" aria-describedby="วัฒนธรรมที่มีในพื้นที่">
-                    <?php echo $row['Culture_details']; ?>
+
                     </textarea>
 
                 </div>
