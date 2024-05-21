@@ -115,7 +115,7 @@ if ($_SESSION['id_admin'] == "") {
               <a class="nav-link active" style="white-space: nowrap;" aria-current="page" href="homeadmin.php">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" style="white-space: nowrap;" aria-current="page" href="areaandplacesMG.php">Area Management</a>
+              <a class="nav-link active" style="white-space: nowrap;" aria-current="page" href="Areamanagement.php">Area Management</a>
             </li>
             <li class="nav-item">
               <a class="nav-link active" style="white-space: nowrap;" aria-current="page" href="areaandplacesMG.php">Places Management</a>

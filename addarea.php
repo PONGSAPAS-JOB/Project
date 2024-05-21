@@ -15,13 +15,77 @@ if ($_SESSION['id_admin'] == "") {
 
     if (isset($_POST['insert'])) {
         $name_Area = $_POST['name_Area'];
-        $location_Area = $_POST['location_Area'];
+        $latitude_Area = $_POST['latitude_Area'];
+        $longitude_Area = $_POST['longitude_Area'];
+        $address_Area = $_POST['address_Area'];
+        $sub_dis_Area = $_POST['sub_dis_Area'];
+        $dis_Area = $_POST['dis_Area'];
+        $provi_Area = $_POST['provi_Area'];
+        $post_code = $_POST['post_code'];
         $info_Area = $_POST['info_Area'];
-        $Culture_details = $_POST['Culture_details'];
+        $activityinfo_Area = $_POST['activityinfo_Area'];
+        $has_map_Area = $_POST['has_map_Area'];
+        $phonenum_Area = $_POST['phonenum_Area'];
+        $email_Area = $_POST['email_Area'];
+        $url_Area = $_POST['url_Area'];
+        $ontime_Mon = $_POST['ontime_Mon'];
+        $ontime_Tue = $_POST['ontime_Tue'];
+        $ontime_Wed = $_POST['ontime_Wed'];
+        $ontime_Thu = $_POST['ontime_Thu'];
+        $ontime_Fri = $_POST['ontime_Fri'];
+        $ontime_Sat = $_POST['ontime_Sat'];
+        $ontime_Sun = $_POST['ontime_Sun'];
+        $closetime_Mon = $_POST['closetime_Mon'];
+        $closetime_Tue = $_POST['closetime_Tue'];
+        $closetime_Wed = $_POST['closetime_Wed'];
+        $closetime_Thu = $_POST['closetime_Thu'];
+        $closetime_Fri = $_POST['closetime_Fri'];
+        $closetime_Sat = $_POST['closetime_Sat'];
+        $closetime_Sun = $_POST['closetime_Sun'];
+        $Access_Status = $_POST['Access_Status'];
+        $price_in = $_POST['price_in'];
         $img_Area1 = $_POST['img_Area1'];
+        $img_Area2 = $_POST['img_Area2'];
+        $img_Area3 = $_POST['img_Area3'];
+        $img_Area4 = $_POST['img_Area4'];
 
 
-        $sql = $userdata->addarea($name_Area, $location_Area, $info_Area, $Culture_details, $img_Area1);
+        $sql = $userdata->addarea(
+            $name_Area,
+            $latitude_Area,
+            $longitude_Area,
+            $address_Area,
+            $sub_dis_Area,
+            $dis_Area,
+            $provi_Area,
+            $post_code,
+            $info_Area,
+            $activityinfo_Area,
+            $has_map_Area,
+            $phonenum_Area,
+            $email_Area,
+            $url_Area,
+            $ontime_Mon,
+            $ontime_Tue,
+            $ontime_Wed,
+            $ontime_Thu,
+            $ontime_Fri,
+            $ontime_Sat,
+            $ontime_Sun,
+            $closetime_Mon,
+            $closetime_Tue,
+            $closetime_Wed,
+            $closetime_Thu,
+            $closetime_Fri,
+            $closetime_Sat,
+            $closetime_Sun,
+            $Access_Status,
+            $price_in,
+            $img_Area1,
+            $img_Area2,
+            $img_Area3,
+            $img_Area4
+        );
 
         if ($sql) {
             // echo "<script>alert('Add Area Success!');</script>";
@@ -42,6 +106,7 @@ if ($_SESSION['id_admin'] == "") {
         } else {
             // echo "<script>alert('Add Area Failed!');</script>";
             // echo "<script>window.location.href='addarea.php'</script>";
+            // echo error_reporting();
             echo   "<script>
                 $(document).ready(function() {
                     Swal.fire({
@@ -63,7 +128,7 @@ if ($_SESSION['id_admin'] == "") {
     <html lang="en">
 
     <head>
-        <script type="text/javascript" src="https://api.longdo.com/map/?key=[03c26c7c6f22c8b6d4ad6ce20cc8bd10]"></script>
+        <script type="text/javascript" src="https://api.longdo.com/map/?key=5f0cf4be3ba02be29c4136aca052b5fd"></script>
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <meta charset="UTF-8">
@@ -221,6 +286,11 @@ if ($_SESSION['id_admin'] == "") {
                 text-align: center;
                 /* Center text within the button */
             }
+
+
+            .required:after {
+                content: "*";
+            }
         </style>
         <script>
             function init() {
@@ -229,52 +299,92 @@ if ($_SESSION['id_admin'] == "") {
                 });
             }
         </script>
-        <?php
-        include_once('functions.php');
-        $fetchdataarea = new DB_con();
-        $sql = $fetchdataarea->fetchdataarea();
 
-
-        ?>
         <div class="addplace "><a></a></div>
         <div class="container">
             <h1 class="mt-5"> เพิ่มข้อมูลสถานที่ท่องเที่ยวหลัก </h1>
             <hr>
 
             <form method="post">
-                <div class="mb-3">
+                <div class="mb-3 ">
                     <label for="name_Area" class="form-label">ชื่อสถานที่หลัก</label>
                     <input type="text" class="form-control" id="name_Area" name="name_Area" aria-describedby="ชื่อสถานที่" onblur="nameareacheck(this.value)" required>
                     <span id="areanameavailable"></span>
                 </div>
-                <div id="map"></div>
-                <div class="mb-3">
-                    <label for="latitude_Area" class="form-label">Latitude ของสถานที่</label>
-                    <input type="text" class="form-control" id="latitude_Area" name="latitude_Area" aria-describedby="Latitude ของสถานที่" required>
+                <div class="mb-3 ">
+                    <label for="#" class="form-label">ประเภทของสถานที่</label>
+                    <script>
+                        var buttonStates = ["false", "false", "false", "false", "false", "false", "false", "false", "false", "false", "false", "false"];
+
+                        function toggleColor(button, index) {
+                            if (button.style.backgroundColor === "pink") {
+                                button.style.backgroundColor = "";
+                                buttonStates[index] = "false";
+                            } else {
+                                button.style.backgroundColor = "pink";
+                                buttonStates[index] = "true";
+                            }
+                            // Convert the buttonStates array to JSON format
+                            var jsonData = JSON.stringify(buttonStates);
+                            console.log(jsonData)
+                        }
+                    </script>
+
+                    <div class="mb-3">
+                        <label for="name_Area" class="form-label">ต้องการเพิ่มในสถานที่บริเวณไหน</label>
+                        <select class="form-select" id="name_Area" name="name_Area" aria-describedby="ชื่อสถานที่หลัก" required>
+                            <!-- Add option elements for each main location -->
+                            <option value="" disabled selected>โปรดเลือกสถานที่</option>
+                            <?php
+                            while ($row = mysqli_fetch_array($sql)) {
+                            ?>
+                                <!-- Ensure to echo the value of name_Area -->
+                                <option value='<?php echo $row['name_Area']; ?>'><?php echo $row['name_Area']; ?></option>
+                            <?php
+                            }
+                            ?>
+                        </select>
+                    </div>
+
+
+
                 </div>
-                <div class="mb-3">
-                    <label for="longitude_Area" class="form-label">Longitude ของสถานที่</label>
-                    <input type="text" class="form-control" id="longitude_Area" name="longitude_Area" aria-describedby="Longitude ของสถานที่" required>
+                <div class="mb-3 ">
+                    <label for="map" class="form-label">เเผนที่ (คลิกซ้ายเพื่อดูข้อมูล)</label>
+                    <div id="map"></div>
                 </div>
-                <div class="mb-3">
-                    <label for="address_Area" class="form-label">ที่อยู่ เลขที่ ซอย ถนน</label>
-                    <input type="text" class="form-control" id="address_Area" name="address_Area" aria-describedby="ที่อยู่ เลขที่" required>
+                <div style="display: flex; ">
+                    <div class="mb-3" style="margin-right: 195px;">
+                        <label for="latitude_Area" class="form-label">Latitude ของสถานที่</label>
+                        <input type="text" class="form-control required" id="latitude_Area" name="latitude_Area" aria-describedby="Latitude ของสถานที่" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="longitude_Area" class="form-label">Longitude ของสถานที่</label>
+                        <input type="text" class="form-control required" id="longitude_Area" name="longitude_Area" aria-describedby="Longitude ของสถานที่" required>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label for="sub_dis_Area" class="form-label">ตำบล</label>
-                    <input type="text" class="form-control" id="sub_dis" name="sub_dis" aria-describedby="ตำบล" required>
-                </div>
-                <div class="mb-3">
-                    <label for="dis_Area" class="form-label">อำเภอ</label>
-                    <input type="text" class="form-control" id="dis_Area" name="dis_Area" aria-describedby="อำเภอ" required>
-                </div>
-                <div class="mb-3">
-                    <label for="provi_Area" class="form-label">จังหวัด</label>
-                    <input type="text" class="form-control" id="provi_Area" name="provi_Area" aria-describedby="จังหวัด" required>
-                </div>
-                <div class="mb-3">
-                    <label for="post_code" class="form-label">รหัสไปรษณีย์</label>
-                    <input type="text" class="form-control" id="post_code" name="post_code" aria-describedby="รหัสไปรษณีย์" required>
+                <div style="display: flex; ">
+                    <div class="mb-3" style="margin-right: 20px;">
+                        <label for="address_Area" class="form-label">ที่อยู่ เลขที่ ซอย ถนน</label>
+                        <input type="text" class="form-control" id="address_Area" name="address_Area" aria-describedby="ที่อยู่ เลขที่" required>
+                    </div>
+                    <div class="mb-3" style="margin-right: 20px;">
+                        <label for="sub_dis_Area" class="form-label">ตำบล</label>
+                        <input type="text" class="form-control" id="sub_dis_Area" name="sub_dis_Area" aria-describedby="ตำบล" required>
+                    </div>
+                    <div class="mb-3" style="margin-right: 20px;">
+                        <label for="dis_Area" class="form-label">อำเภอ</label>
+                        <input type="text" class="form-control" id="dis_Area" name="dis_Area" aria-describedby="อำเภอ" required>
+                    </div>
+
+                    <div class="mb-3" style="margin-right: 20px;">
+                        <label for="provi_Area" class="form-label">จังหวัด</label>
+                        <input type="text" class="form-control" id="provi_Area" name="provi_Area" aria-describedby="จังหวัด" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="post_code" class="form-label">รหัสไปรษณีย์</label>
+                        <input type="text" class="form-control" id="post_code" name="post_code" aria-describedby="รหัสไปรษณีย์" required>
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="info_Area" class="form-label">ข้อมูลสถานที่</label>
@@ -286,23 +396,46 @@ if ($_SESSION['id_admin'] == "") {
                     <textarea type="text" class="form-control" row="10" id="activityinfo_Area" name="activityinfo_Area" aria-describedby="กิจกรรมที่น่าสนใจ" required>
                     </textarea>
                 </div>
-                <div class="mb-3">
-                    <label for="name_Area" class="form-label"></label>
-                    <select class="form-select" id="name_Area" name="name_Area" aria-describedby="ชื่อสถานที่หลัก" required>
-                        <!-- Add option elements for each main location -->
-                        <option value="" disabled selected>โปรดเลือกสถานที่</option>
-                        <?php
-                        while ($row = mysqli_fetch_array($sql)) {
-                        ?>
-                            <!-- Ensure to echo the value of name_Area -->
-                            <option value='<?php echo $row['name_Area']; ?>'><?php echo $row['name_Area']; ?></option>
-                        <?php
+                <div class="mb-3 ">
+                    <label for="id_typeArea" class="form-label">กลุ่มนักท่องเที่ยวเป้าหมาย</label>
+                    <script>
+                        var buttonStates = ["false", "false", "false", "false", "false", "false", "false", "false", "false", "false", "false", "false"];
+
+                        function toggleColor(button, index) {
+                            if (button.style.backgroundColor === "pink") {
+                                button.style.backgroundColor = "";
+                                buttonStates[index] = "false";
+                            } else {
+                                button.style.backgroundColor = "pink";
+                                buttonStates[index] = "true";
+                            }
+                            // Convert the buttonStates array to JSON format
+                            var jsonData = JSON.stringify(buttonStates);
+                            console.log(jsonData)
                         }
-                        ?>
-                    </select>
+                    </script>
+
+                    <div class="mb-4" style="display: flex;">
+                        <button type="button" class="btn btn-light" style="margin-right: 30px; border: 1px solid #000000; width: 150px;" onclick="toggleColor(this, 0)">กลุ่มฮันนีมูน</button>
+                        <button type="button" class="btn btn-light" style="margin-right: 30px; border: 1px solid #000000; width: 150px;" onclick="toggleColor(this, 1)">กลุ่มผู้มีความผิดปกติทางกาย</button>
+                        <button type="button" class="btn btn-light" style="margin-right: 30px; border: 1px solid #000000; width: 150px;" onclick="toggleColor(this, 2)">กลุ่มผู้สูงอายุ</button>
+                        <button type="button" class="btn btn-light" style="margin-right: 30px; border: 1px solid #000000; width: 150px;" onclick="toggleColor(this, 3)">กลุ่มท่องเที่ยวเชิงศาสนา</button>
+                        <button type="button" class="btn btn-light" style="margin-right: 30px; border: 1px solid #000000; width: 150px;" onclick="toggleColor(this, 4)">กลุ่มท่องเที่ยวเชิงการศึกษา</button>
+
+
+                    </div>
+                    <div class="mb-4" style="display: flex;">
+                        <button type="button" class="btn btn-light" style="margin-right: 30px; border: 1px solid #000000; width: 150px;" onclick="toggleColor(this, 5)">กลุ่มครอบครัว</button>
+                        <button type="button" class="btn btn-light" style="margin-right: 30px; border: 1px solid #000000; width: 150px;" onclick="toggleColor(this , 6)">กลุ่มนักเรียน/นักศึกษา</button>
+                        <button type="button" class="btn btn-light" style="margin-right: 30px; border: 1px solid #000000; width: 150px;" onclick="toggleColor(this, 7)">กลุ่มเพื่อความสำราญ</button>
+                        <button type="button" class="btn btn-light" style="margin-right: 30px; border: 1px solid #000000; width: 150px;" onclick="toggleColor(this, 8)">กลุ่มนักทัศนาจร</button>
+                    </div>
+
+
+
                 </div>
                 <div class="mb-3">
-                    <label for="has_map_Area" class="form-label">ลิ้งค์เเผนที่</label>
+                    <label for="has_map_Area" class="form-label">Link Google Map</label>
                     <input type="text" class="form-control" id="has_map_Area" name="has_map_Area" aria-describedby="ลิ้งค์เเผนที่" required>
                 </div>
                 <div class="mb-3">
@@ -318,53 +451,156 @@ if ($_SESSION['id_admin'] == "") {
                     <input type="text" class="form-control" id="url_Area" name="url_Area" aria-describedby="Link สถานที่ เพิ่มเติม" required>
                 </div>
                 <hr>
-                <h2 class="mt-5"> เวลาที่เปิด-ปิด </h2>
-                <div class="mb-3">
+                <h2 class="mt-3"> เวลาที่เปิด-ปิด </h2>
+                <div class="mb-1">
                 </div>
-                <div class="mb-3">
-                    <label for="ontime_Mon" class="form-label">เวลาเปิด-ปิด วันจันทร์</label>
-                    <input type="text" class="form-control" id="ontime_Mon" name="ontime_Mon" aria-describedby="เวลาเปิด-ปิด วันจันทร์" required>
+                <div style="display: flex; ">
+                    <h5 class="mt-4" style="margin-right: 60px;"> วันจันทร์ :</h5>
+
+                    <div class="mb-3" style="margin-right: 20px;">
+                        <label for="ontime_Mon" class="form-label"> เวลาเปิด </label>
+                        <input type="time" class="form-control" id="ontime_Mon" name="ontime_Mon" aria-describedby="เวลาเปิด" required>
+                    </div>
+                    <div class="mb-3" style="margin-right: 20px;">
+                        <h3 class="mt-4"> ~ </h3>
+                    </div>
+                    <div class="mb-3">
+                        <label for="closetime_Mon" class="form-label">เวลาปิด </label>
+                        <input type="time" class="form-control" id="closetime_Mon" name="closetime_Mon" aria-describedby="เวลาปิด " required>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label for="ontime_Tue" class="form-label">เวลาเปิด-ปิด วันอังคาร</label>
-                    <input type="text" class="form-control" id="ontime_Tue" name="ontime_Tue" aria-describedby="เวลาเปิด-ปิด วันอังคาร" required>
+                <div style="display: flex; ">
+                    <h5 class="mt-4" style="margin-right: 53px;"> วันอังคาร : </h5>
+
+                    <div class="mb-1" style="margin-right: 20px;">
+                        <label for="ontime_Tue" class="form-label"> เวลาเปิด </label>
+                        <input type="time" class="form-control" id="ontime_Tue" name="ontime_Tue" aria-describedby="เวลาเปิด" required>
+                    </div>
+                    <div class="mb-1" style="margin-right: 20px;">
+                        <h3 class="mt-4"> ~ </h3>
+                    </div>
+                    <div class="mb-1">
+                        <label for="closetime_Tue" class="form-label">เวลาปิด </label>
+                        <input type="time" class="form-control" id="closetime_Tue" name="closetime_Tue" aria-describedby="เวลาปิด " required>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label for="ontime_Wed" class="form-label">เวลาเปิด-ปิด วันพุธ</label>
-                    <input type="text" class="form-control" id="ontime_Wed" name="ontime_Wed" aria-describedby="เวลาเปิด-ปิด วันพุธ" required>
+                <div style="display: flex; ">
+                    <h5 class="mt-4" style="margin-right: 85px;"> วันพุธ : </h5>
+
+                    <div class="mb-3" style="margin-right: 20px;">
+                        <label for="ontime_Wed" class="form-label"> เวลาเปิด </label>
+                        <input type="time" class="form-control" id="ontime_Wed" name="ontime_Wed" aria-describedby="เวลาเปิด" required>
+                    </div>
+                    <div class="mb-3" style="margin-right: 20px;">
+                        <h3 class="mt-4"> ~ </h3>
+                    </div>
+                    <div class="mb-3">
+                        <label for="closetime_Wed" class="form-label">เวลาปิด </label>
+                        <input type="time" class="form-control" id="closetime_Wed" name="closetime_Wed" aria-describedby="เวลาปิด " required>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label for="ontime_Thu" class="form-label">เวลาเปิด-ปิด วันพฤหัสบดี</label>
-                    <input type="text" class="form-control" id="ontime_Thu" name="ontime_Thu" aria-describedby="เวลาเปิด-ปิด วันพฤหัสบดี" required>
+                <div style="display: flex; ">
+                    <h5 class="mt-4" style="margin-right: 20px;"> วันพฤหัสบดี : </h5>
+
+                    <div class="mb-3" style="margin-right: 20px;">
+                        <label for="ontime_Thu" class="form-label"> เวลาเปิด </label>
+                        <input type="time" class="form-control" id="ontime_Thu" name="ontime_Thu" aria-describedby="เวลาเปิด" required>
+                    </div>
+                    <div class="mb-3" style="margin-right: 20px;">
+                        <h3 class="mt-4"> ~ </h3>
+                    </div>
+                    <div class="mb-3">
+                        <label for="closetime_Thu" class="form-label">เวลาปิด </label>
+                        <input type="time" class="form-control" id="closetime_Thu" name="closetime_Thu" aria-describedby="เวลาปิด " required>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label for="ontime_Fri" class="form-label">เวลาเปิด-ปิด วันศุกร์</label>
-                    <input type="text" class="form-control" id="ontime_Fri" name="ontime_Fri" aria-describedby="เวลาเปิด-ปิด วันศุกร์" required>
+                <div style="display: flex; ">
+                    <h5 class="mt-4" style="margin-right: 73px;"> วันศุกร์ :</h5>
+
+                    <div class="mb-3" style="margin-right: 20px;">
+                        <label for="ontime_Fri" class="form-label"> เวลาเปิด </label>
+                        <input type="time" class="form-control" id="ontime_Fri" name="ontime_Fri" aria-describedby="เวลาเปิด" required>
+                    </div>
+                    <div class="mb-3" style="margin-right: 20px;">
+                        <h3 class="mt-4"> ~ </h3>
+                    </div>
+                    <div class="mb-3">
+                        <label for="closetime_Fri" class="form-label">เวลาปิด </label>
+                        <input type="time" class="form-control" id="closetime_Fri" name="closetime_Fri" aria-describedby="เวลาปิด " required>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label for="ontime_Sat" class="form-label">เวลาเปิด-ปิด วันเสาร์</label>
-                    <input type="text" class="form-control" id="ontime_Sat" name="ontime_Sat" aria-describedby="เวลาเปิด-ปิด วันเสาร์" required>
+                <div style="display: flex; ">
+                    <h5 class="mt-4" style="margin-right: 70px;"> วันเสาร์ : </h5>
+
+                    <div class="mb-3" style="margin-right: 20px;">
+                        <label for="ontime_Sat" class="form-label"> เวลาเปิด </label>
+                        <input type="time" class="form-control" id="ontime_Sat" name="ontime_Sat" aria-describedby="เวลาเปิด" required>
+                    </div>
+                    <div class="mb-3" style="margin-right: 20px;">
+                        <h3 class="mt-4"> ~ </h3>
+                    </div>
+                    <div class="mb-3">
+                        <label for="closetime_Sat" class="form-label">เวลาปิด </label>
+                        <input type="time" class="form-control" id="closetime_Sat" name="closetime_Sat" aria-describedby="เวลาปิด " required>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label for="ontime_Sun" class="form-label">เวลาเปิด-ปิด วันอาทิตย์</label>
-                    <input type="text" class="form-control" id="ontime_Sun" name="ontime_Sun" aria-describedby="เวลาเปิด-ปิด วันอาทิตย์" required>
+                <div style="display: flex; ">
+                    <h5 class="mt-4" style="margin-right: 40px;"> วันอาทิตย์ : </h5>
+
+                    <div class="mb-3" style="margin-right: 20px;">
+                        <label for="ontime_Sun" class="form-label"> เวลาเปิด </label>
+                        <input type="time" class="form-control" id="ontime_Sun" name="ontime_Sun" aria-describedby="เวลาเปิด" required>
+                    </div>
+                    <div class="mb-3" style="margin-right: 20px;">
+                        <h3 class="mt-4"> ~ </h3>
+                    </div>
+                    <div class="mb-3">
+                        <label for="closetime_Sun" class="form-label">เวลาปิด </label>
+                        <input type="time" class="form-control" id="closetime_Sun" name="closetime_Sun" aria-describedby="เวลาปิด " required>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label for="Access_Status" class="form-label">สถานะการเข้าใช้บริการ</label>
-                    <input type="text" class="form-control" id="Access_Status" name="Access_Status" aria-describedby="สถานะการเข้าใช้บริการ" required>
+                <div style="display: flex; ">
+                    <div class="mb-3" style="margin-right: 30px;">
+                        <label for="Access_Status" class="form-label">การเรียกเก็บค่าเข้าใช้บริการ</label>
+                        <input type="text" class="form-control" id="Access_Status" name="Access_Status" aria-describedby="สถานะการเข้าใช้บริการ" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="price_in" class="form-label">ค่าเข้าใช้บริการ (ถ้ามี)</label>
+                        <input type="text" class="form-control" id="price_in" name="price_in" aria-describedby="ค่าเข้าใช้บริการ">
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label for="price_in" class="form-label">ค่าเข้าใช้บริการ (ถ้ามี)</label>
-                    <input type="text" class="form-control" id="price_in" name="price_in" aria-describedby="ค่าเข้าใช้บริการ" required>
+                <hr>
+                <h2 class="mt-3"> อัพโหลดรูปภาพ </h2>
+                <!-- 
+                <div class="container">
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <form action="upload.php" method="POST" enctype="multipart/form-data">
+                                <div class=" p-4 border-dashed round-3">
+                                    <h6 class="my-2">เลือกไฟล์เพื่ออัพโหลด ภาพหน้าปก</h6>
+                                    <input type="file" name="img_Area1" class="form-control streched-link" accept="image/gif, image/jpeg, image/png">
+                                    <p class="small mb-0 mt-2"><b>หมายเหตุ : </b>เฉพาะ ไฟล์ JPG,JPEG,PNG เเละ GIF เท่านั้น</p>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="row">
+                       
+                    </div>
+                </div> -->
+
+                <div class="mb-5">
+                    <label for="image" class="form-label">รูปภาพสถานที่ หน้าปก</label>
+                    <input type="file" class="form-control" id="img_Area1" name="img_Area1" accept="image/*">
+                    <label for="image" class="form-label">รูปภาพสถานที่ เพิ่มเติม1</label>
+                    <input type="file" class="form-control" id="img_Area2" name="img_Area2" accept="image/*">
+                    <label for="image" class="form-label">รูปภาพสถานที่ เพิ่มเติม2</label>
+                    <input type="file" class="form-control" id="img_Area3" name="img_Area3" accept="image/*">
+                    <label for="image" class="form-label">รูปภาพสถานที่ เพิ่มเติม3</label>
+                    <input type="file" class="form-control" id="img_Area4" name="img_Area4" accept="image/*">
                 </div>
 
-
-                <div class="mb-3">
-                    <label for="image" class="form-label">รูปภาพสถานที่</label>
-                    <input type="file" class="form-control" id="image" name="image" accept="image/*">
-                </div>
-
-                <button type="submit" name="insert" id="insert" class="btn btn-warning">เเก้ไขข้อมูลสถานที่หลักใหม่</button>
+                <button type="submit" name="insert" id="insert" class="btn btn-warning">เพิ่มข้อมูลสถานที่หลักใหม่</button>
 
             </form>
         </div>

@@ -185,6 +185,8 @@ if ($_SESSION['id_admin'] == "") {
         $sql = $fetchdataarea->fetchdataarea();
 
 
+        $index = 1;
+
         ?>
 
 
@@ -195,9 +197,11 @@ if ($_SESSION['id_admin'] == "") {
                 <table class="table table-bordered" style="font-size: 15px;">
                     <thead>
                         <tr>
-                            <th scope="col">รหัสสถานที่</th>
+                            <th scope="col">ลำดับสถานที่</th>
                             <th scope="col">รายการสถานที่ท่องเที่ยวหลัก</th>
-                            <th scope="col">ที่อยู่สถานที่</th>
+                            <th scope="col">เบอร์โทรศัพท์</th>
+                            <th scope="col">Link ติดต่อสถานที่เพิ่มเติม</th>
+                            <th scope="col">Link googlemap</th>
                             <th scope="col">เเก้ไข</th>
                             <th scope="col">ลบ</th>
                         </tr>
@@ -207,9 +211,12 @@ if ($_SESSION['id_admin'] == "") {
                         while ($row = mysqli_fetch_array($sql)) {
                         ?>
                             <tr>
-                                <td><?php echo $row['id_Area']; ?></td>
+                                <td><?php echo $index ?></td>
+                                <?php $index = $index + 1; ?>
                                 <td><?php echo $row['name_Area']; ?></td>
-                                <td><?php echo $row['location_Area']; ?></td> <!-- Display 'admin' if manager info is not available -->
+                                <td><?php echo $row['phonenum_Area']; ?></td>
+                                <td><?php echo $row['url_Area']; ?></td>
+                                <td><?php echo $row['has_map_Area']; ?></td> <!-- Display 'admin' if manager info is not available -->
                                 <td><a href="updateArea.php?id=<?php echo $row['id_Area']; ?>">แก้ไข</a></td>
                                 <td><a href="deleteArea.php?del=<?php echo $row['id_Area']; ?>">ลบ</a></td>
                             </tr>

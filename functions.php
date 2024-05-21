@@ -3,7 +3,7 @@
 define('DB_SERVER', 'localhost');
 define('DB_USER', 'root');
 define('DB_PASS', '');
-define('DB_NAME', 'theawkanmai_1');
+define('DB_NAME', 'theawkanmai');
 
 
 class DB_con
@@ -123,9 +123,52 @@ class DB_con
     }
 
 
-    public function addarea($name_Area, $location_Area, $info_Area, $Culture_details, $img_Area1)
-    {
-        $addarea = mysqli_query($this->dbcon, "INSERT INTO area_info(name_Area, location_Area, info_Area ,Culture_details,img_Area1) VALUE('$name_Area','$location_Area','$info_Area','$Culture_details','$img_Area1')");
+    public function addarea(
+        $name_Area,
+        $latitude_Area,
+        $longitude_Area,
+        $address_Area,
+        $sub_dis_Area,
+        $dis_Area,
+        $provi_Area,
+        $post_code,
+        $info_Area,
+        $activityinfo_Area,
+        $has_map_Area,
+        $phonenum_Area,
+        $email_Area,
+        $url_Area,
+        $ontime_Mon,
+        $ontime_Tue,
+        $ontime_Wed,
+        $ontime_Thu,
+        $ontime_Fri,
+        $ontime_Sat,
+        $ontime_Sun,
+        $closetime_Mon,
+        $closetime_Tue,
+        $closetime_Wed,
+        $closetime_Thu,
+        $closetime_Fri,
+        $closetime_Sat,
+        $closetime_Sun,
+        $Access_Status,
+        $price_in,
+        $img_Area1,
+        $img_Area2,
+        $img_Area3,
+        $img_Area4
+    ) {
+        $addarea = mysqli_query($this->dbcon, "INSERT INTO area_info(name_Area, latitude_Area, longitude_Area,address_Area,sub_dis_Area,
+        dis_Area,provi_Area,post_code,
+    info_Area,activityinfo_Area,has_map_Area,phonenum_Area,email_Area,url_Area,
+    ontime_Mon,ontime_Tue,ontime_Wed,ontime_Thu,ontime_Fri,ontime_Sat,ontime_Sun,
+    closetime_Mon,closetime_Tue,closetime_Wed,closetime_Thu,closetime_Fri,closetime_Sat,closetime_Sun,
+    Access_Status,price_in,img_Area1,img_Area2,img_Area3,img_Area4) VALUE('$name_Area', '$latitude_Area', '$longitude_Area', '$address_Area',' $sub_dis_Area','$dis_Area','$provi_Area','$post_code',
+    '$info_Area','$activityinfo_Area','$has_map_Area','$phonenum_Area','$email_Area','$url_Area',
+    '$ontime_Mon','$ontime_Tue','$ontime_Wed','$ontime_Thu','$ontime_Fri','$ontime_Sat','$ontime_Sun',
+    '$closetime_Mon','$closetime_Tue','$closetime_Wed','$closetime_Thu','$closetime_Fri','$closetime_Sat','$closetime_Sun',
+    '$Access_Status','$price_in','$img_Area1','$img_Area2','$img_Area3','$img_Area4')");
         return $addarea;
     }
 
