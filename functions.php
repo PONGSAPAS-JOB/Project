@@ -1,9 +1,9 @@
 <?php
 
 define('DB_SERVER', 'localhost');
-define('DB_USER', 'id21649318_root');
+define('DB_USER', 'root');
 define('DB_PASS', '');
-define('DB_NAME', 'theawkanmai');
+define('DB_NAME', 'theawkanmai_1');
 
 
 class DB_con

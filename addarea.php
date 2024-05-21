@@ -63,6 +63,8 @@ if ($_SESSION['id_admin'] == "") {
     <html lang="en">
 
     <head>
+        <script type="text/javascript" src="https://api.longdo.com/map/?key=[03c26c7c6f22c8b6d4ad6ce20cc8bd10]"></script>
+
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -81,7 +83,7 @@ if ($_SESSION['id_admin'] == "") {
         }
     </style>
 
-    <body>
+    <body onload="init();">
         <style>
             @font-face {
                 font-family: 'Lily Script One';
@@ -203,6 +205,10 @@ if ($_SESSION['id_admin'] == "") {
 
             }
 
+            #map {
+                height: 50%;
+            }
+
             .addplace {
                 margin-top: 100px;
                 /* Adjusted margin-top to create space between button and cards */
@@ -216,7 +222,20 @@ if ($_SESSION['id_admin'] == "") {
                 /* Center text within the button */
             }
         </style>
+        <script>
+            function init() {
+                var map = new longdo.Map({
+                    placeholder: document.getElementById('map')
+                });
+            }
+        </script>
+        <?php
+        include_once('functions.php');
+        $fetchdataarea = new DB_con();
+        $sql = $fetchdataarea->fetchdataarea();
 
+
+        ?>
         <div class="addplace "><a></a></div>
         <div class="container">
             <h1 class="mt-5"> เพิ่มข้อมูลสถานที่ท่องเที่ยวหลัก </h1>
@@ -228,26 +247,118 @@ if ($_SESSION['id_admin'] == "") {
                     <input type="text" class="form-control" id="name_Area" name="name_Area" aria-describedby="ชื่อสถานที่" onblur="nameareacheck(this.value)" required>
                     <span id="areanameavailable"></span>
                 </div>
+                <div id="map"></div>
                 <div class="mb-3">
-                    <label for="location_Area" class="form-label">ที่อยู่ของสถานที่</label>
-                    <textarea type="text" class="form-control" row="10" id="location_Area" name="location_Area" aria-describedby="ที่อยู่ของสถานที่" required>
-
-                    </textarea>
+                    <label for="latitude_Area" class="form-label">Latitude ของสถานที่</label>
+                    <input type="text" class="form-control" id="latitude_Area" name="latitude_Area" aria-describedby="Latitude ของสถานที่" required>
+                </div>
+                <div class="mb-3">
+                    <label for="longitude_Area" class="form-label">Longitude ของสถานที่</label>
+                    <input type="text" class="form-control" id="longitude_Area" name="longitude_Area" aria-describedby="Longitude ของสถานที่" required>
+                </div>
+                <div class="mb-3">
+                    <label for="address_Area" class="form-label">ที่อยู่ เลขที่ ซอย ถนน</label>
+                    <input type="text" class="form-control" id="address_Area" name="address_Area" aria-describedby="ที่อยู่ เลขที่" required>
+                </div>
+                <div class="mb-3">
+                    <label for="sub_dis_Area" class="form-label">ตำบล</label>
+                    <input type="text" class="form-control" id="sub_dis" name="sub_dis" aria-describedby="ตำบล" required>
+                </div>
+                <div class="mb-3">
+                    <label for="dis_Area" class="form-label">อำเภอ</label>
+                    <input type="text" class="form-control" id="dis_Area" name="dis_Area" aria-describedby="อำเภอ" required>
+                </div>
+                <div class="mb-3">
+                    <label for="provi_Area" class="form-label">จังหวัด</label>
+                    <input type="text" class="form-control" id="provi_Area" name="provi_Area" aria-describedby="จังหวัด" required>
+                </div>
+                <div class="mb-3">
+                    <label for="post_code" class="form-label">รหัสไปรษณีย์</label>
+                    <input type="text" class="form-control" id="post_code" name="post_code" aria-describedby="รหัสไปรษณีย์" required>
                 </div>
                 <div class="mb-3">
                     <label for="info_Area" class="form-label">ข้อมูลสถานที่</label>
                     <textarea type="text" class="form-control" row="10" id="info_Area" name="info_Area" aria-describedby="ข้อมูลสถานที่" required>
-
                     </textarea>
-
                 </div>
                 <div class="mb-3">
-                    <label for="Culture_details" class="form-label">วัฒนธรรมที่มีในพื้นที่</label>
-                    <textarea type="text" class="form-control" row="10" id="Culture_details" name="Culture_details" aria-describedby="วัฒนธรรมที่มีในพื้นที่">
-
+                    <label for="activityinfo_Area" class="form-label">กิจกรรมที่น่าสนใจ</label>
+                    <textarea type="text" class="form-control" row="10" id="activityinfo_Area" name="activityinfo_Area" aria-describedby="กิจกรรมที่น่าสนใจ" required>
                     </textarea>
-
                 </div>
+                <div class="mb-3">
+                    <label for="name_Area" class="form-label"></label>
+                    <select class="form-select" id="name_Area" name="name_Area" aria-describedby="ชื่อสถานที่หลัก" required>
+                        <!-- Add option elements for each main location -->
+                        <option value="" disabled selected>โปรดเลือกสถานที่</option>
+                        <?php
+                        while ($row = mysqli_fetch_array($sql)) {
+                        ?>
+                            <!-- Ensure to echo the value of name_Area -->
+                            <option value='<?php echo $row['name_Area']; ?>'><?php echo $row['name_Area']; ?></option>
+                        <?php
+                        }
+                        ?>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="has_map_Area" class="form-label">ลิ้งค์เเผนที่</label>
+                    <input type="text" class="form-control" id="has_map_Area" name="has_map_Area" aria-describedby="ลิ้งค์เเผนที่" required>
+                </div>
+                <div class="mb-3">
+                    <label for="phonenum_Area" class="form-label">เบอร์โทรศัพท์ สถานที่</label>
+                    <input type="text" class="form-control" id="phonenum_Area" name="phonenum_Area" aria-describedby="เบอร์โทรศัพท์ สถานที่" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email_Area" class="form-label">Email สถานที่</label>
+                    <input type="text" class="form-control" id="email_Area" name="email_Area" aria-describedby="Email สถานที่" required>
+                </div>
+                <div class="mb-3">
+                    <label for="url_Area" class="form-label">Link สถานที่ เพิ่มเติม</label>
+                    <input type="text" class="form-control" id="url_Area" name="url_Area" aria-describedby="Link สถานที่ เพิ่มเติม" required>
+                </div>
+                <hr>
+                <h2 class="mt-5"> เวลาที่เปิด-ปิด </h2>
+                <div class="mb-3">
+                </div>
+                <div class="mb-3">
+                    <label for="ontime_Mon" class="form-label">เวลาเปิด-ปิด วันจันทร์</label>
+                    <input type="text" class="form-control" id="ontime_Mon" name="ontime_Mon" aria-describedby="เวลาเปิด-ปิด วันจันทร์" required>
+                </div>
+                <div class="mb-3">
+                    <label for="ontime_Tue" class="form-label">เวลาเปิด-ปิด วันอังคาร</label>
+                    <input type="text" class="form-control" id="ontime_Tue" name="ontime_Tue" aria-describedby="เวลาเปิด-ปิด วันอังคาร" required>
+                </div>
+                <div class="mb-3">
+                    <label for="ontime_Wed" class="form-label">เวลาเปิด-ปิด วันพุธ</label>
+                    <input type="text" class="form-control" id="ontime_Wed" name="ontime_Wed" aria-describedby="เวลาเปิด-ปิด วันพุธ" required>
+                </div>
+                <div class="mb-3">
+                    <label for="ontime_Thu" class="form-label">เวลาเปิด-ปิด วันพฤหัสบดี</label>
+                    <input type="text" class="form-control" id="ontime_Thu" name="ontime_Thu" aria-describedby="เวลาเปิด-ปิด วันพฤหัสบดี" required>
+                </div>
+                <div class="mb-3">
+                    <label for="ontime_Fri" class="form-label">เวลาเปิด-ปิด วันศุกร์</label>
+                    <input type="text" class="form-control" id="ontime_Fri" name="ontime_Fri" aria-describedby="เวลาเปิด-ปิด วันศุกร์" required>
+                </div>
+                <div class="mb-3">
+                    <label for="ontime_Sat" class="form-label">เวลาเปิด-ปิด วันเสาร์</label>
+                    <input type="text" class="form-control" id="ontime_Sat" name="ontime_Sat" aria-describedby="เวลาเปิด-ปิด วันเสาร์" required>
+                </div>
+                <div class="mb-3">
+                    <label for="ontime_Sun" class="form-label">เวลาเปิด-ปิด วันอาทิตย์</label>
+                    <input type="text" class="form-control" id="ontime_Sun" name="ontime_Sun" aria-describedby="เวลาเปิด-ปิด วันอาทิตย์" required>
+                </div>
+                <div class="mb-3">
+                    <label for="Access_Status" class="form-label">สถานะการเข้าใช้บริการ</label>
+                    <input type="text" class="form-control" id="Access_Status" name="Access_Status" aria-describedby="สถานะการเข้าใช้บริการ" required>
+                </div>
+                <div class="mb-3">
+                    <label for="price_in" class="form-label">ค่าเข้าใช้บริการ (ถ้ามี)</label>
+                    <input type="text" class="form-control" id="price_in" name="price_in" aria-describedby="ค่าเข้าใช้บริการ" required>
+                </div>
+
+
                 <div class="mb-3">
                     <label for="image" class="form-label">รูปภาพสถานที่</label>
                     <input type="file" class="form-control" id="image" name="image" accept="image/*">

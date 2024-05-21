@@ -54,7 +54,7 @@ if ($_SESSION['id_admin'] == "") {
 
 
       .navbar-nav {
-        margin-left: 21%;
+        margin-left: 15%;
         flex-grow: 1;
         justify-content: center;
 
@@ -68,9 +68,9 @@ if ($_SESSION['id_admin'] == "") {
       }
 
       .collapse .navbar-collapse {
-        margin-left: 10%;
+        margin-left: 4%;
         align-items: center;
-        justify-content: center;
+
       }
 
       .navbar-brand {
@@ -115,7 +115,10 @@ if ($_SESSION['id_admin'] == "") {
               <a class="nav-link active" style="white-space: nowrap;" aria-current="page" href="homeadmin.php">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" style="white-space: nowrap;" aria-current="page" href="areaandplacesMG.php">Area/Places Management</a>
+              <a class="nav-link active" style="white-space: nowrap;" aria-current="page" href="areaandplacesMG.php">Area Management</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" style="white-space: nowrap;" aria-current="page" href="areaandplacesMG.php">Places Management</a>
             </li>
             <li class="nav-item">
               <a class="nav-link active" style="white-space: nowrap;" aria-current="page" href="memberMG.php">Member Management</a>
@@ -175,6 +178,10 @@ if ($_SESSION['id_admin'] == "") {
         background-color: #ccc;
         /* Change to the desired gray color */
       }
+
+      .td {
+        text-overflow: ellipsis;
+      }
     </style>
 
     <script>
@@ -186,98 +193,83 @@ if ($_SESSION['id_admin'] == "") {
 
 
 
-    <?php
-    include_once('functions.php');
-    $fetchdataarea = new DB_con();
-    $sql = $fetchdataarea->fetchdataarea();
 
 
-    ?>
-
-    <div class="container" style="display: flex; justify-content: center; ">
-
-      <div class="container" style="font-size: 25px; background-color: #ffffff; width: 320px; padding: 20px; box-shadow: 0px 4px 10px rgba(0, 0, 10, 0.15); text-align: center; ">
-        <b>สถานที่ท่องเที่ยว</b>
-        <div style="width: 100px; padding: 20px;  white-space: nowrap;  margin-left: 47px;">
-          <a href="Areamanagement.php" class="btn btn-warning">เเก้ไขสถานที่หลัก</a>
-        </div>
-        <hr>
-        <div style="font-size: 15px; display: flex;  flex-direction: column; text-align: left;">
-          <?php
-          while ($row = mysqli_fetch_array($sql)) {
-          ?>
-            <div onclick="handleClick('<?php echo $row['name_Area']; ?>')">
-              <?php echo $row['name_Area']; ?>
-              <hr>
-            </div>
-          <?php
-          }
-          ?>
+    <div class="container" style=" font-size: 25px; background-color: #ffffff; width: 1250px; padding: 20px; box-shadow: 0px 4px 10px rgba(0, 0, 10, 0.15); text-align: center; 
+                ">
+      <b>รายละเอียด สถานที่</b>
+      <div style="margin-top: 20px; ">
+        <table class="table table-bordered" style="font-size: 15px; justify-content: center; text-overflow: ellipsis;">
+          <thead>
+            <tr>
+              <th scope="col">ลำดับสถานที่</th>
+              <th scope="col">รายการสถานที่ท่องเที่ยวย่อย</th>
+              <th scope="col">รายละเอียดสถานที่ท่องเที่ยวย่อย</th>
+              <th scope="col">สถานที่หลักที่อยู่</th>
+              <th scope="col">เจ้าของสถานที่</th>
+              <th scope="col">เเก้ไข</th>
+              <th scope="col">ลบ</th>
+            </tr>
+          </thead>
+          <tbody>
 
 
+            <?php
+            include_once('functions.php');
+            $fetchdataplaces = new DB_con();
+            $sql = $fetchdataplaces->fetchdataplaces();
 
-        </div>
-      </div>
+            $fetchdataarea = new DB_con();
+            $sqlar = $fetchdataarea->fetchdataarea();
+
+            $index = 1;
 
 
 
-      <div class="container" style=" font-size: 25px; background-color: #ffffff; width: 880px; padding: 20px; margin-left: -10px; box-shadow: 0px 4px 10px rgba(0, 0, 10, 0.15); text-align: center;">
-        <b>รายละเอียด สถานที่</b>
-        <div style="margin-top: 20px;">
-          <table class="table table-bordered" style="font-size: 15px;">
-            <thead>
-              <tr>
-                <th scope="col">รหัสสถานที่</th>
-                <th scope="col">รายการสถานที่ท่องเที่ยวย่อย</th>
-                <th scope="col">สถานที่หลักที่อยู่</th>
-                <th scope="col">เจ้าของสถานที่</th>
-                <th scope="col">เเก้ไข</th>
-                <th scope="col">ลบ</th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php
-              include_once('functions.php');
-              $fetchdataplaces = new DB_con();
-              $sql = $fetchdataplaces->fetchdataplaces();
-
-              // Fetch data from your query and loop through the rows
-              while ($row = mysqli_fetch_array($sql)) {
-                // Check if id_manager is set and not null
-                if (isset($row['id_manager']) && $row['id_manager'] !== null) {
-                  // Get manager info for each row
-                  $getinfomanager = new DB_con();
-                  $info = $getinfomanager->getinfomanager($row['id_manager']);
-                  // Check if manager info is fetched successfully
-                  if ($info) {
-                    $manager_info = mysqli_fetch_assoc($info);
-                    $manager_email = isset($manager_info['email']) ? $manager_info['email'] : 'admin';
-                  } else {
-                    // Handle error when manager info is not fetched
-                    $manager_email = 'admin';
-                  }
+            // Fetch data from your query and loop through the rows
+            while ($row = mysqli_fetch_array($sql)) {
+              // Check if id_manager is set and not null
+              if (isset($row['id_manager']) && $row['id_manager'] !== null) {
+                // Get manager info for each row
+                $getinfomanager = new DB_con();
+                $info = $getinfomanager->getinfomanager($row['id_manager']);
+                // Check if manager info is fetched successfully
+                if ($info) {
+                  $manager_info = mysqli_fetch_assoc($info);
+                  $manager_email = isset($manager_info['email']) ? $manager_info['email'] : 'admin';
                 } else {
-                  // Handle case where id_manager is not set or null
+                  // Handle error when manager info is not fetched
                   $manager_email = 'admin';
                 }
-              ?>
-                <tr>
-                  <td><?php echo $row['id_places']; ?></td>
-                  <td><?php echo $row['name_places']; ?></td>
-                  <td><?php echo $row['id_Area']; ?></td>
-                  <td><?php echo $manager_email; ?></td> <!-- Display 'admin' if manager info is not available -->
-                  <td><a href="updateplacesAD.php?id=<?php echo $row['id_places']; ?>">แก้ไข</a></td>
-                  <td><a href="deleteplacesAD.php?del=<?php echo $row['id_places']; ?>">ลบ</a></td>
-                </tr>
-              <?php
+              } else {
+                // Handle case where id_manager is not set or null
+                $manager_email = 'admin';
               }
-              ?>
-            </tbody>
+            ?>
 
 
-          </table>
-        </div>
+
+              <tr>
+                <td><?php echo $index ?></td>
+                <?php $index = $index + 1; ?> <!-- Corrected line -->
+                <td><?php echo $row['name_places']; ?></td>
+                <td style="max-width: 150px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><?php echo $row['details_places']; ?></td>
+                <td><?php echo $row['id_Area']; ?></td>
+                <td><?php echo $manager_email; ?></td> <!-- Display 'admin' if manager info is not available -->
+                <td><a href="updateplacesAD.php?id=<?php echo $row['id_places']; ?>">แก้ไข</a></td>
+                <td><a href="deleteplacesAD.php?del=<?php echo $row['id_places']; ?>">ลบ</a></td>
+              </tr>
+
+
+            <?php
+            }
+            ?>
+          </tbody>
+
+
+        </table>
       </div>
+    </div>
 
 
     </div>
