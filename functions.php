@@ -134,6 +134,7 @@ class DB_con
         $post_code,
         $info_Area,
         $activityinfo_Area,
+        $filename,
         $has_map_Area,
         $phonenum_Area,
         $email_Area,
@@ -154,28 +155,65 @@ class DB_con
         $closetime_Sun,
         $Access_Status,
         $price_in,
-        $img_Area1,
-        $img_Area2,
-        $img_Area3,
-        $img_Area4
+        $name_typeArea
+
+
     ) {
-        $addarea = mysqli_query($this->dbcon, "INSERT INTO area_info(name_Area, latitude_Area, longitude_Area,address_Area,sub_dis_Area,
+        $getAreatypeIdQuery = "SELECT id_type_area FROM area_type_info WHERE name_typeArea = '$name_typeArea'";
+        $result = mysqli_query($this->dbcon, $getAreatypeIdQuery);
+        if ($result && mysqli_num_rows($result) > 0) {
+            // Fetch the id_Area from the result
+            $row = mysqli_fetch_assoc($result);
+            $id_type_area = $row['id_type_area'];
+
+
+
+
+            $addarea = mysqli_query($this->dbcon, "INSERT INTO area_info(
+            name_Area, latitude_Area, longitude_Area,address_Area,sub_dis_Area,
         dis_Area,provi_Area,post_code,
-    info_Area,activityinfo_Area,has_map_Area,phonenum_Area,email_Area,url_Area,
+    info_Area,activityinfo_Area,
+    img_Area1
+    ,has_map_Area,phonenum_Area,email_Area,url_Area,
     ontime_Mon,ontime_Tue,ontime_Wed,ontime_Thu,ontime_Fri,ontime_Sat,ontime_Sun,
     closetime_Mon,closetime_Tue,closetime_Wed,closetime_Thu,closetime_Fri,closetime_Sat,closetime_Sun,
-    Access_Status,price_in,img_Area1,img_Area2,img_Area3,img_Area4) VALUE('$name_Area', '$latitude_Area', '$longitude_Area', '$address_Area',' $sub_dis_Area','$dis_Area','$provi_Area','$post_code',
-    '$info_Area','$activityinfo_Area','$has_map_Area','$phonenum_Area','$email_Area','$url_Area',
+    Access_Status,
+    price_in,id_type_area
+    ) 
+    VALUE(
+        '$name_Area', '$latitude_Area', '$longitude_Area', '$address_Area',' $sub_dis_Area','$dis_Area','$provi_Area','$post_code',
+    '$info_Area','$activityinfo_Area',
+    '$filename'
+    ,'$has_map_Area','$phonenum_Area','$email_Area','$url_Area',
     '$ontime_Mon','$ontime_Tue','$ontime_Wed','$ontime_Thu','$ontime_Fri','$ontime_Sat','$ontime_Sun',
     '$closetime_Mon','$closetime_Tue','$closetime_Wed','$closetime_Thu','$closetime_Fri','$closetime_Sat','$closetime_Sun',
-    '$Access_Status','$price_in','$img_Area1','$img_Area2','$img_Area3','$img_Area4')");
-        return $addarea;
+    '$Access_Status',
+    '$price_in','$id_type_area'
+    )");
+            return $addarea;
+        } else {
+
+            // Handle the case when the selected area is not found
+            return false; // or handle the error as needed
+        }
     }
 
 
     public function fetchdataarea()
     {
         $result = mysqli_query($this->dbcon, "SELECT * FROM area_info");
+        return $result;
+    }
+
+    public function fetchdataType()
+    {
+        $result = mysqli_query($this->dbcon, "SELECT * FROM area_type_info");
+        return $result;
+    }
+
+    public function fetchdataTypetour()
+    {
+        $result = mysqli_query($this->dbcon, "SELECT * FROM tour_type");
         return $result;
     }
 
