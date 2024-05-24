@@ -17,21 +17,6 @@ if ($_SESSION['id_admin'] == "") {
 
 
 
-        // Get all the submitted data from the form
-        $sql = "INSERT INTO area_info (img_Area1) VALUES ('$filename')";
-
-        // Execute query
-
-
-        // Now let's move the uploaded image into the folder: image
-        if (move_uploaded_file($tempname, $folder)) {
-            echo "<h3> Image uploaded successfully!</h3>";
-        } else {
-            echo "<h3> Failed to upload image!</h3>";
-        }
-
-
-
 
         $name_Area = $_POST['name_Area'];
         $latitude_Area = $_POST['latitude_Area'];
@@ -43,9 +28,27 @@ if ($_SESSION['id_admin'] == "") {
         $post_code = $_POST['post_code'];
         $info_Area = $_POST['info_Area'];
         $activityinfo_Area = $_POST['activityinfo_Area'];
-        $filename = $_FILES["uploadfile"]["name"];
-        $tempname = $_FILES["uploadfile"]["tmp_name"];
-        $folder = "./image/" . $filename;
+
+        $tour_type_descrip1 = $_POST['tour_type_descrip1'];
+        $tour_type_descrip2 = $_POST['tour_type_descrip2'];
+
+
+        //รูปภาพที่ 1
+        $filename1 = $_FILES["uploadfile1"]["name"];
+        $tempname1 = $_FILES["uploadfile1"]["tmp_name"];
+        $folder1 = "./image/" . $filename1;
+        //รูปภาพที่ 2
+        $filename2 = $_FILES["uploadfile2"]["name"];
+        $tempname2 = $_FILES["uploadfile2"]["tmp_name"];
+        $folder2 = "./image/" . $filename2;
+        //รูปภาพที่ 3
+        $filename3 = $_FILES["uploadfile3"]["name"];
+        $tempname3 = $_FILES["uploadfile3"]["tmp_name"];
+        $folder3 = "./image/" . $filename3;
+        //รูปภาพที่ 4
+        $filename4 = $_FILES["uploadfile4"]["name"];
+        $tempname4 = $_FILES["uploadfile4"]["tmp_name"];
+        $folder4 = "./image/" . $filename4;
         $has_map_Area = $_POST['has_map_Area'];
         $phonenum_Area = $_POST['phonenum_Area'];
         $email_Area = $_POST['email_Area'];
@@ -81,7 +84,12 @@ if ($_SESSION['id_admin'] == "") {
             $post_code,
             $info_Area,
             $activityinfo_Area,
-            $filename,
+            $tour_type_descrip1,
+            $tour_type_descrip2,
+            $filename1,
+            $filename2,
+            $filename3,
+            $filename4,
             $has_map_Area,
             $phonenum_Area,
             $email_Area,
@@ -195,7 +203,7 @@ if ($_SESSION['id_admin'] == "") {
 
 
             .navbar-nav {
-                margin-left: 21%;
+                margin-left: 15%;
                 flex-grow: 1;
                 justify-content: center;
 
@@ -209,9 +217,9 @@ if ($_SESSION['id_admin'] == "") {
             }
 
             .collapse .navbar-collapse {
-                margin-left: 10%;
+                margin-left: 4%;
                 align-items: center;
-                justify-content: center;
+
             }
 
             .navbar-brand {
@@ -234,6 +242,8 @@ if ($_SESSION['id_admin'] == "") {
                 margin-right: 3%;
                 margin-bottom: -10%;
 
+
+
             }
         </style>
 
@@ -254,7 +264,10 @@ if ($_SESSION['id_admin'] == "") {
                             <a class="nav-link active" style="white-space: nowrap;" aria-current="page" href="homeadmin.php">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" style="white-space: nowrap;" aria-current="page" href="areaandplacesMG.php">Area/Places Management</a>
+                            <a class="nav-link active" style="white-space: nowrap;" aria-current="page" href="Areamanagement.php">Area Management</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" style="white-space: nowrap;" aria-current="page" href="areaandplacesMG.php">Places Management</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" style="white-space: nowrap;" aria-current="page" href="memberMG.php">Member Management</a>
@@ -280,6 +293,7 @@ if ($_SESSION['id_admin'] == "") {
                 </div>
             </div>
         </nav>
+
         <style>
             .container {
                 margin-top: 40px;
@@ -331,7 +345,7 @@ if ($_SESSION['id_admin'] == "") {
                 <div style="display: flex; ">
                     <div class="mb-3 " style="margin-right: 150px; width: 500px;">
                         <label for="name_Area" class="form-label">ชื่อสถานที่หลัก</label>
-                        <input type="text" class="form-control" id="name_Area" name="name_Area" aria-describedby="ชื่อสถานที่" onblur="nameareacheck(this.value)">
+                        <input type="text" class="form-control" id="name_Area" name="name_Area" aria-describedby="ชื่อสถานที่" onblur="nameareacheck(this.value)" required>
                         <span id="areanameavailable"></span>
                     </div>
 
@@ -346,7 +360,7 @@ if ($_SESSION['id_admin'] == "") {
 
                     <div class="mb-3" style="width: 200px; margin-right: 10px;">
                         <label for="name_typeArea" class="form-label">ประเภทของสถานที่</label>
-                        <select class="form-select" id="name_typeArea" name="name_typeArea" aria-describedby="ประเภท" onchange="showOtherInput()">
+                        <select class="form-select" id="name_typeArea" name="name_typeArea" aria-describedby="ประเภท" onchange="showOtherInput()" required>
                             <option value="" disabled selected>โปรดเลือกประเภท</option>
                             <?php
                             while ($rowType = mysqli_fetch_array($sqlType)) {
@@ -387,15 +401,15 @@ if ($_SESSION['id_admin'] == "") {
                 <div style="display: flex; ">
                     <div class="mb-3" style="margin-right: 50px; width: 500px;">
                         <label for="has_map_Area" class="form-label">Link Google Map</label>
-                        <input type="text" class="form-control" id="has_map_Area" name="has_map_Area" aria-describedby="ลิ้งค์เเผนที่">
+                        <input type="text" class="form-control" id="has_map_Area" name="has_map_Area" aria-describedby="ลิ้งค์เเผนที่" required>
                     </div>
                     <div class="mb-3" style="margin-right: 20px;">
                         <label for="latitude_Area" class="form-label">Latitude ของสถานที่</label>
-                        <input type="text" class="form-control " id="latitude_Area" name="latitude_Area" aria-describedby="Latitude ของสถานที่">
+                        <input type="text" class="form-control " id="latitude_Area" name="latitude_Area" aria-describedby="Latitude ของสถานที่" required>
                     </div>
                     <div class="mb-3">
                         <label for="longitude_Area" class="form-label">Longitude ของสถานที่</label>
-                        <input type="text" class="form-control " id="longitude_Area" name="longitude_Area" aria-describedby="Longitude ของสถานที่">
+                        <input type="text" class="form-control " id="longitude_Area" name="longitude_Area" aria-describedby="Longitude ของสถานที่" required>
                     </div>
                 </div>
                 <div style="display: flex; ">
@@ -405,30 +419,30 @@ if ($_SESSION['id_admin'] == "") {
                     </div>
                     <div class="mb-3" style="margin-right: 20px;">
                         <label for="sub_dis_Area" class="form-label">ตำบล</label>
-                        <input type="text" class="form-control" id="sub_dis_Area" name="sub_dis_Area" aria-describedby="ตำบล">
+                        <input type="text" class="form-control" id="sub_dis_Area" name="sub_dis_Area" aria-describedby="ตำบล" required>
                     </div>
                     <div class="mb-3" style="margin-right: 20px;">
                         <label for="dis_Area" class="form-label">อำเภอ</label>
-                        <input type="text" class="form-control" id="dis_Area" name="dis_Area" aria-describedby="อำเภอ">
+                        <input type="text" class="form-control" id="dis_Area" name="dis_Area" aria-describedby="อำเภอ" required>
                     </div>
 
                     <div class="mb-3" style="margin-right: 20px;">
                         <label for="provi_Area" class="form-label">จังหวัด</label>
-                        <input type="text" class="form-control" id="provi_Area" name="provi_Area" aria-describedby="จังหวัด">
+                        <input type="text" class="form-control" id="provi_Area" name="provi_Area" aria-describedby="จังหวัด" required>
                     </div>
                     <div class="mb-3">
                         <label for="post_code" class="form-label">รหัสไปรษณีย์</label>
-                        <input type="text" class="form-control" id="post_code" name="post_code" aria-describedby="รหัสไปรษณีย์">
+                        <input type="text" class="form-control" id="post_code" name="post_code" aria-describedby="รหัสไปรษณีย์" required>
                     </div>
                 </div>
                 <div style="display: flex; ">
                     <div class="mb-3" style="margin-right: 20px; ">
                         <label for="phonenum_Area" class="form-label">เบอร์โทรศัพท์ สถานที่</label>
-                        <input type="text" class="form-control" id="phonenum_Area" name="phonenum_Area" aria-describedby="เบอร์โทรศัพท์ สถานที่">
+                        <input type="text" class="form-control" id="phonenum_Area" name="phonenum_Area" aria-describedby="เบอร์โทรศัพท์ สถานที่" required>
                     </div>
                     <div class="mb-3" style="margin-right: 20px; width: 400px;">
                         <label for="email_Area" class="form-label">Email สถานที่</label>
-                        <input type="text" class="form-control" id="email_Area" name="email_Area" aria-describedby="Email สถานที่">
+                        <input type="email" class="form-control" id="email_Area" name="email_Area" aria-describedby="Email สถานที่">
                     </div>
                     <div class="mb-3" style=" width: 400px;">
                         <label for="url_Area" class="form-label">Link สถานที่ เพิ่มเติม</label>
@@ -437,7 +451,7 @@ if ($_SESSION['id_admin'] == "") {
                 </div>
                 <div class="mb-3">
                     <label for="info_Area" class="form-label">ข้อมูลสถานที่</label>
-                    <textarea type="text" class="form-control" row="10" id="info_Area" name="info_Area" aria-describedby="ข้อมูลสถานที่">
+                    <textarea type="text" class="form-control" row="10" id="info_Area" name="info_Area" aria-describedby="ข้อมูลสถานที่" required>
                     </textarea>
                 </div>
                 <div class="mb-3">
@@ -458,7 +472,7 @@ if ($_SESSION['id_admin'] == "") {
                 <div style="display: flex; ">
                     <div class="mb-3" style="margin-right: 50px; width: 400px;">
                         <label for="tour_type_descrip1" class="form-label">กลุ่มนักท่องเที่ยวเป้าหมาย กลุ่มที่ 1</label>
-                        <select class="form-select" id="tour_type_descrip1" name="tour_type_descrip1" aria-describedby="ประเภท">
+                        <select class="form-select" id="tour_type_descrip1" name="tour_type_descrip1" aria-describedby="ประเภท" required>
                             <option value="" disabled selected>โปรดเลือกกลุ่มนักท่องเที่ยว</option>
                             <?php foreach ($tourTypes as $type) { ?>
                                 <option value='<?php echo $type; ?>'><?php echo $type; ?></option>
@@ -527,11 +541,15 @@ if ($_SESSION['id_admin'] == "") {
                         const isOpen = document.getElementById(`switch_${day}`).checked;
                         const openTimeInput = document.getElementById(`ontime_${day}`);
                         const closeTimeInput = document.getElementById(`closetime_${day}`);
+                        const hiddenOpenTimeInput = document.getElementById(`hidden_ontime_${day}`);
+                        const hiddenCloseTimeInput = document.getElementById(`hidden_closetime_${day}`);
 
                         openTimeInput.disabled = !isOpen;
                         closeTimeInput.disabled = !isOpen;
 
                         if (!isOpen) {
+                            hiddenOpenTimeInput.value = '';
+                            hiddenCloseTimeInput.value = '';
                             openTimeInput.value = '';
                             closeTimeInput.value = '';
                             openTimeInput.style.backgroundColor = 'lightgray';
@@ -544,12 +562,17 @@ if ($_SESSION['id_admin'] == "") {
                         validateTime(day);
                     }
 
-
                     document.addEventListener('DOMContentLoaded', (event) => {
                         const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
                         days.forEach(day => {
-                            document.getElementById(`ontime_${day}`).addEventListener('change', () => validateTime(day));
-                            document.getElementById(`closetime_${day}`).addEventListener('change', () => validateTime(day));
+                            document.getElementById(`ontime_${day}`).addEventListener('change', () => {
+                                document.getElementById(`hidden_ontime_${day}`).value = document.getElementById(`ontime_${day}`).value;
+                                validateTime(day);
+                            });
+                            document.getElementById(`closetime_${day}`).addEventListener('change', () => {
+                                document.getElementById(`hidden_closetime_${day}`).value = document.getElementById(`closetime_${day}`).value;
+                                validateTime(day);
+                            });
                             document.getElementById(`switch_${day}`).addEventListener('change', () => toggleTimeInputs(day));
                         });
                     });
@@ -559,7 +582,7 @@ if ($_SESSION['id_admin'] == "") {
                 <!-- Time inputs for each day of the week -->
 
                 <div class="day-time-input">
-                    <div style="display: flex; ">
+                    <div style="display: flex;">
                         <div class="form-check form-switch mt-4" style="margin-right: 20px;">
                             <input class="form-check-input" type="checkbox" id="switch_Mon" checked>
                             <label class="form-check-label" for="switch_Mon"></label>
@@ -568,6 +591,7 @@ if ($_SESSION['id_admin'] == "") {
                         <div class="mb-3" style="margin-right: 20px;">
                             <label for="ontime_Mon" class="form-label">เวลาเปิด</label>
                             <input type="time" class="form-control" id="ontime_Mon" name="ontime_Mon">
+                            <input type="hidden" id="hidden_ontime_Mon" name="hidden_ontime_Mon">
                         </div>
                         <div class="mb-3" style="margin-right: 20px;">
                             <h5 class="mt-5">ถึง</h5>
@@ -575,15 +599,16 @@ if ($_SESSION['id_admin'] == "") {
                         <div class="mb-3">
                             <label for="closetime_Mon" class="form-label">เวลาปิด</label>
                             <input type="time" class="form-control" id="closetime_Mon" name="closetime_Mon">
+                            <input type="hidden" id="hidden_closetime_Mon" name="hidden_closetime_Mon">
                         </div>
-                        <div id="error-message-Mon" class="alert " style="color: red; margin-left: 10px; display: none;">
+                        <div id="error-message-Mon" class="alert" style="color: red; margin-left: 10px; display: none;">
                             เวลาเปิดต้องน้อยกว่าเวลาปิด
                         </div>
                     </div>
                 </div>
 
                 <div class="day-time-input">
-                    <div style="display: flex; ">
+                    <div style="display: flex;">
                         <div class="form-check form-switch mt-4" style="margin-right: 20px;">
                             <input class="form-check-input" type="checkbox" id="switch_Tue" checked>
                             <label class="form-check-label" for="switch_Tue"></label>
@@ -592,6 +617,7 @@ if ($_SESSION['id_admin'] == "") {
                         <div class="mb-3" style="margin-right: 20px;">
                             <label for="ontime_Tue" class="form-label"></label>
                             <input type="time" class="form-control" id="ontime_Tue" name="ontime_Tue">
+                            <input type="hidden" id="hidden_ontime_Tue" name="hidden_ontime_Tue">
                         </div>
                         <div class="mb-1" style="margin-right: 20px;">
                             <h5 class="mt-4">ถึง</h5>
@@ -599,15 +625,16 @@ if ($_SESSION['id_admin'] == "") {
                         <div class="mb-1">
                             <label for="closetime_Tue" class="form-label"></label>
                             <input type="time" class="form-control" id="closetime_Tue" name="closetime_Tue">
+                            <input type="hidden" id="hidden_closetime_Tue" name="hidden_closetime_Tue">
                         </div>
-                        <div id="error-message-Tue" class="alert " style="color: red; margin-left: 10px; display: none;">
+                        <div id="error-message-Tue" class="alert" style="color: red; margin-left: 10px; display: none;">
                             เวลาเปิดต้องน้อยกว่าเวลาปิด
                         </div>
                     </div>
                 </div>
 
                 <div class="day-time-input">
-                    <div style="display: flex; ">
+                    <div style="display: flex;">
                         <div class="form-check form-switch mt-4" style="margin-right: 20px;">
                             <input class="form-check-input" type="checkbox" id="switch_Wed" checked>
                             <label class="form-check-label" for="switch_Wed"></label>
@@ -616,6 +643,7 @@ if ($_SESSION['id_admin'] == "") {
                         <div class="mb-3" style="margin-right: 20px;">
                             <label for="ontime_Wed" class="form-label"></label>
                             <input type="time" class="form-control" id="ontime_Wed" name="ontime_Wed">
+                            <input type="hidden" id="hidden_ontime_Wed" name="hidden_ontime_Wed">
                         </div>
                         <div class="mb-3" style="margin-right: 20px;">
                             <h5 class="mt-4">ถึง</h5>
@@ -623,15 +651,16 @@ if ($_SESSION['id_admin'] == "") {
                         <div class="mb-3">
                             <label for="closetime_Wed" class="form-label"></label>
                             <input type="time" class="form-control" id="closetime_Wed" name="closetime_Wed">
+                            <input type="hidden" id="hidden_closetime_Wed" name="hidden_closetime_Wed">
                         </div>
-                        <div id="error-message-Wed" class="alert " style="color: red; margin-left: 10px; display: none;">
+                        <div id="error-message-Wed" class="alert" style="color: red; margin-left: 10px; display: none;">
                             เวลาเปิดต้องน้อยกว่าเวลาปิด
                         </div>
                     </div>
                 </div>
 
                 <div class="day-time-input">
-                    <div style="display: flex; ">
+                    <div style="display: flex;">
                         <div class="form-check form-switch mt-4" style="margin-right: 20px;">
                             <input class="form-check-input" type="checkbox" id="switch_Thu" checked>
                             <label class="form-check-label" for="switch_Thu"></label>
@@ -640,6 +669,7 @@ if ($_SESSION['id_admin'] == "") {
                         <div class="mb-3" style="margin-right: 20px;">
                             <label for="ontime_Thu" class="form-label"></label>
                             <input type="time" class="form-control" id="ontime_Thu" name="ontime_Thu">
+                            <input type="hidden" id="hidden_ontime_Thu" name="hidden_ontime_Thu">
                         </div>
                         <div class="mb-3" style="margin-right: 20px;">
                             <h5 class="mt-4">ถึง</h5>
@@ -647,6 +677,7 @@ if ($_SESSION['id_admin'] == "") {
                         <div class="mb-3">
                             <label for="closetime_Thu" class="form-label"></label>
                             <input type="time" class="form-control" id="closetime_Thu" name="closetime_Thu">
+                            <input type="hidden" id="hidden_closetime_Thu" name="hidden_closetime_Thu">
                         </div>
                         <div id="error-message-Thu" class="alert " style="color: red; margin-left: 10px; display: none;">
                             เวลาเปิดต้องน้อยกว่าเวลาปิด
@@ -655,15 +686,16 @@ if ($_SESSION['id_admin'] == "") {
                 </div>
 
                 <div class="day-time-input">
-                    <div style="display: flex; ">
+                    <div style="display: flex;">
                         <div class="form-check form-switch mt-4" style="margin-right: 20px;">
                             <input class="form-check-input" type="checkbox" id="switch_Fri" checked>
                             <label class="form-check-label" for="switch_Fri"></label>
                         </div>
-                        <h5 class="mt-4" style="margin-right: 73px;">วันศุกร์ :</h5>
+                        <h5 class="mt-4" style="margin-right: 20px;">วันศุกร์ :</h5>
                         <div class="mb-3" style="margin-right: 20px;">
                             <label for="ontime_Fri" class="form-label"></label>
                             <input type="time" class="form-control" id="ontime_Fri" name="ontime_Fri">
+                            <input type="hidden" id="hidden_ontime_Fri" name="hidden_ontime_Fri">
                         </div>
                         <div class="mb-3" style="margin-right: 20px;">
                             <h5 class="mt-4">ถึง</h5>
@@ -671,6 +703,7 @@ if ($_SESSION['id_admin'] == "") {
                         <div class="mb-3">
                             <label for="closetime_Fri" class="form-label"></label>
                             <input type="time" class="form-control" id="closetime_Fri" name="closetime_Fri">
+                            <input type="hidden" id="hidden_closetime_Fri" name="hidden_closetime_Fri">
                         </div>
                         <div id="error-message-Fri" class="alert " style="color: red; margin-left: 10px; display: none;">
                             เวลาเปิดต้องน้อยกว่าเวลาปิด
@@ -679,15 +712,16 @@ if ($_SESSION['id_admin'] == "") {
                 </div>
 
                 <div class="day-time-input">
-                    <div style="display: flex; ">
+                    <div style="display: flex;">
                         <div class="form-check form-switch mt-4" style="margin-right: 20px;">
                             <input class="form-check-input" type="checkbox" id="switch_Sat" checked>
                             <label class="form-check-label" for="switch_Sat"></label>
                         </div>
-                        <h5 class="mt-4" style="margin-right: 70px;">วันเสาร์ :</h5>
+                        <h5 class="mt-4" style="margin-right: 20px;">วันเสาร์ :</h5>
                         <div class="mb-3" style="margin-right: 20px;">
                             <label for="ontime_Sat" class="form-label"></label>
                             <input type="time" class="form-control" id="ontime_Sat" name="ontime_Sat">
+                            <input type="hidden" id="hidden_ontime_Sat" name="hidden_ontime_Sat">
                         </div>
                         <div class="mb-3" style="margin-right: 20px;">
                             <h5 class="mt-4">ถึง</h5>
@@ -695,6 +729,7 @@ if ($_SESSION['id_admin'] == "") {
                         <div class="mb-3">
                             <label for="closetime_Sat" class="form-label"></label>
                             <input type="time" class="form-control" id="closetime_Sat" name="closetime_Sat">
+                            <input type="hidden" id="hidden_closetime_Sat" name="hidden_closetime_Sat">
                         </div>
                         <div id="error-message-Sat" class="alert " style="color: red; margin-left: 10px; display: none;">
                             เวลาเปิดต้องน้อยกว่าเวลาปิด
@@ -703,15 +738,16 @@ if ($_SESSION['id_admin'] == "") {
                 </div>
 
                 <div class="day-time-input">
-                    <div style="display: flex; ">
+                    <div style="display: flex;">
                         <div class="form-check form-switch mt-4" style="margin-right: 20px;">
                             <input class="form-check-input" type="checkbox" id="switch_Sun" checked>
                             <label class="form-check-label" for="switch_Sun"></label>
                         </div>
-                        <h5 class="mt-4" style="margin-right: 40px;">วันอาทิตย์ :</h5>
+                        <h5 class="mt-4" style="margin-right: 20px;">วันอาทิตย์ :</h5>
                         <div class="mb-3" style="margin-right: 20px;">
                             <label for="ontime_Sun" class="form-label"></label>
                             <input type="time" class="form-control" id="ontime_Sun" name="ontime_Sun">
+                            <input type="hidden" id="hidden_ontime_Sun" name="hidden_ontime_Sun">
                         </div>
                         <div class="mb-3" style="margin-right: 20px;">
                             <h5 class="mt-4">ถึง</h5>
@@ -719,25 +755,25 @@ if ($_SESSION['id_admin'] == "") {
                         <div class="mb-3">
                             <label for="closetime_Sun" class="form-label"></label>
                             <input type="time" class="form-control" id="closetime_Sun" name="closetime_Sun">
+                            <input type="hidden" id="hidden_closetime_Sun" name="hidden_closetime_Sun">
                         </div>
                         <div id="error-message-Sun" class="alert " style="color: red; margin-left: 10px; display: none;">
                             เวลาเปิดต้องน้อยกว่าเวลาปิด
                         </div>
                     </div>
                 </div>
-
                 <hr>
 
                 <div style="display: flex;">
                     <div class="mb-3" style="margin-right: 30px;">
                         <label class="form-label">การเรียกเก็บค่าเข้าใช้บริการ</label><br>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="Access_Status" id="access_status_free" value="free" onclick="showpaidInput()">
-                            <label class="form-check-label" for="access_status_free">ฟรี</label>
+                            <input class="form-check-input" type="radio" name="Access_Status" id="access_status_free" value="ไม่มีค่าเข้าชม" onclick="showpaidInput()">
+                            <label class="form-check-label" for="access_status_free">ไม่มีค่าเข้าชม</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="Access_Status" id="access_status_paid" value="paid" onclick="showpaidInput()">
-                            <label class="form-check-label" for="access_status_paid">เสียค่าบริการ</label>
+                            <input class="form-check-input" type="radio" name="Access_Status" id="access_status_paid" value="มีค่าเข้าใช้บริการ" onclick="showpaidInput()">
+                            <label class="form-check-label" for="access_status_paid">มีค่าเข้าใช้บริการ</label>
                         </div>
                     </div>
                     <script>
@@ -766,7 +802,20 @@ if ($_SESSION['id_admin'] == "") {
 
                     <div id="content">
                         <div class="form-group">
-                            <input class="form-control" type="file" name="uploadfile" value="" />
+                            <label for="uploadfile1" class="form-label">รูปภาพที่ 1 (รูปภาพหน้าปก)</label>
+                            <input class="form-control" type="file" name="uploadfile1" value="" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="uploadfile1" class="form-label">รูปภาพที่ 2 (รูปภาพเพิ่มเติม)</label>
+                            <input class="form-control" type="file" name="uploadfile2" value="">
+                        </div>
+                        <div class="form-group">
+                            <label for="uploadfile1" class="form-label">รูปภาพที่ 3 (รูปภาพเพิ่มเติม)</label>
+                            <input class="form-control" type="file" name="uploadfile3" value="">
+                        </div>
+                        <div class="form-group">
+                            <label for="uploadfile1" class="form-label">รูปภาพที่ 4 (รูปภาพเพิ่มเติม)</label>
+                            <input class="form-control" type="file" name="uploadfile4" value="">
                         </div>
 
                     </div>

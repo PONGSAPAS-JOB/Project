@@ -54,7 +54,7 @@ if ($_SESSION['id_admin'] == "") {
 
 
             .navbar-nav {
-                margin-left: 21%;
+                margin-left: 15%;
                 flex-grow: 1;
                 justify-content: center;
 
@@ -68,9 +68,9 @@ if ($_SESSION['id_admin'] == "") {
             }
 
             .collapse .navbar-collapse {
-                margin-left: 10%;
+                margin-left: 4%;
                 align-items: center;
-                justify-content: center;
+
             }
 
             .navbar-brand {
@@ -115,7 +115,10 @@ if ($_SESSION['id_admin'] == "") {
                             <a class="nav-link active" style="white-space: nowrap;" aria-current="page" href="homeadmin.php">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" style="white-space: nowrap;" aria-current="page" href="areaandplacesMG.php">Area/Places Management</a>
+                            <a class="nav-link active" style="white-space: nowrap;" aria-current="page" href="Areamanagement.php">Area Management</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" style="white-space: nowrap;" aria-current="page" href="areaandplacesMG.php">Places Management</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" style="white-space: nowrap;" aria-current="page" href="memberMG.php">Member Management</a>
@@ -141,6 +144,7 @@ if ($_SESSION['id_admin'] == "") {
                 </div>
             </div>
         </nav>
+
 
         <style>
             .addplace {
